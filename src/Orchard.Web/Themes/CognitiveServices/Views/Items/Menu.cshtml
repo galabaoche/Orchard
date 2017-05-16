@@ -1,0 +1,170 @@
+﻿@using Orchard.UI.Navigation;
+@{
+    Script.Include("headroom.js").AtFoot().SetAttribute("data-timestamped", "true");
+    Script.Include("jquery.headroom.js").AtFoot().SetAttribute("data-timestamped", "true");
+    Script.Include("nav.js?v={2/string}").AtFoot().SetAttribute("data-timestamped", "true");
+    Style.Include("main-navigation.css").SetAttribute("data-timestamped", "true");
+    AppendMeta("viewport", "width=device-width", ";");
+}
+<script type="text/javascript">
+    $(function () {
+        $('.navigation .sub-menuitem li a').each(function () {
+            if ($(this).attr('href').lastIndexOf('.') > 0) {
+                var urlDomain = $(this).attr('href').substring(0, $(this).attr('href').lastIndexOf('.')).toLowerCase();
+                if (urlDomain.indexOf('msdn') > 0) {
+                    $(this).attr("onclick", "ga('send', 'event', 'outbound', 'msdn', 'navbar')");
+                }
+                if (urlDomain.indexOf('stackoverflow') > 0) {
+                    $(this).attr("onclick", "ga('send', 'event', 'outbound', 'stackOverflow', 'navbar')");
+                }
+                if (urlDomain.indexOf('uservoice') > 0) {
+                    $(this).attr("onclick", "ga('send', 'event', 'outbound', 'userVoice', 'navbar')");
+                }
+            }
+        });
+
+    })
+</script>
+<div class="container main-navigation">
+
+    <nav class="col navbar navbar-default navbar-static-top" id="nav" role="navigation" aria-label="Main menu">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <div class="navbar-brand visible-xs">
+                    <a href="https://www.microsoft.com">
+                        <img class="brandImg" src="@Href("~/Themes/CognitiveServices/Content/Images/microsoftLogo.png")" alt="Microsoft">
+                    </a>
+                    <a href="@Href("~/").TrimEnd('/')">
+                        <div class="brandTitle">@T("Cognitive Services")</div>
+                    </a>
+                </div>
+                <div id="newWidgetContainer" class="visible-xs">
+
+                </div>
+                <button type="button" id="brandBtn" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-1" aria-expanded="false">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse @*hidden-xs*@" id="navbar-collapse-1" role="menubar">
+                <ul class="nav navbar-nav mobile-nav">
+                    @if (Model.Items != null)
+                    {
+                        var mainItems = (IList<dynamic>)Enumerable.Cast<dynamic>(Model.Items);
+
+                        foreach (var mainItem in mainItems)
+                        {
+                            var subItems = (IList<dynamic>)Enumerable.Cast<dynamic>(mainItem.Items);
+
+                            <li aria-label="@mainItem.Text.Text" class="mobile-nav-item dropdown-toggle@(mainItem.Selected ? " current" : "")@((mainItem.Items != null && mainItem.Items.Count > 0) ? " dropdown" : "")@(mainItem.Selected && subItems.Any() ? " dropActive" : "")" role="menuitem">
+                                @*removed open tag to avoid submenu loading open on new page*@
+                                @if (mainItem.Items != null && mainItem.Items.Count > 0)
+                                {
+                                    var href = mainItem.Href;
+                                    var linkId = "topLink";
+                                    if (String.IsNullOrWhiteSpace(href) || href == @HttpRuntime.AppDomainAppVirtualPath + "/")
+                                    {
+                                        href = "#";
+                                        linkId += mainItem.Text.Text;
+                                    }
+
+                                    <a id="@linkId" href="@href" class="text--xs">@Html.Raw(mainItem.Text.Text)<span class="arrow1"></span></a>
+
+                                    <div class="dropdown-menu tier-1">
+                                        <div class="container-fluid navigation">
+                                            @foreach (var subItem in subItems)
+                                            {
+                                                <div class="col-md-2">
+                                                    <ul class="mobile-nav">
+                                                        <li class="mobile-nav-item" aria-label="@Html.Raw(subItem.Text.Text)" role="menuitem">
+                                                            <h3 class="text--bold text--black text--xs hidden-xs">
+                                                                @Html.Raw(subItem.Text.Text)
+                                                                @if (subItem.Items != null && subItem.Items.Count > 0)
+                                                                {
+                                                                    <span class="arrow"></span>
+                                                                }
+                                                            </h3>
+                                                            <div class="visible-xs">
+                                                                <span>@Html.Raw(subItem.Text.Text)</span>
+                                                                @if (subItem.Items != null && subItem.Items.Count > 0)
+                                                                {
+                                                                    <span class="arrow"></span>
+                                                                }
+                                                            </div>
+                                                        </li>
+                                                        @if (subItem.Items != null && subItem.Items.Count > 0)
+                                                        {
+                                                            <li class="sub-menuitem mobile-nav-item">
+                                                                <ul class="mobile-nav">
+                                                                    @{
+                                                                        var sortDicKey = new dynamic[subItem.Items.Count];
+
+                                                                        var srotDicValue = new dynamic[subItem.Items.Count];
+
+                                                                        for (int i = 0; i < subItem.Items.Count; i++)
+                                                                        {
+                                                                            if (subItem.Items[i].Content.ContentItem.ApiDetailPart != null)
+                                                                            {
+                                                                                sortDicKey[i] = subItem.Items[i].Content.ContentItem.ApiDetailPart.Weight;
+                                                                            }
+                                                                            srotDicValue[i] = subItem.Items[i];
+                                                                        }
+
+                                                                        Array.Sort(sortDicKey, srotDicValue);
+                                                                    }
+                                                                    @foreach (var sub2Item in srotDicValue)
+                                                                    {
+                                                                        string targetBlank = "";
+                                                                        string upgradimg = "";
+                                                                        bool showUpgradimgdiv = false;
+                                                                        if (sub2Item.Href.StartsWith("http", StringComparison.OrdinalIgnoreCase) || sub2Item.Href.ToLower().Contains("/documentation"))
+                                                                        {
+                                                                            targetBlank = "target=\"_blank\"";
+                                                                            upgradimg = "upgrade--img";
+                                                                            showUpgradimgdiv = true;
+                                                                        }
+                                                                        <li class="mobile-nav-item">
+                                                                            <a href="@sub2Item.Href" @targetBlank class="text--reg text--xs text--teal @upgradimg">
+                                                                                @Html.Raw(sub2Item.Text.Text)
+                                                                                @if (showUpgradimgdiv)
+                                                                                {
+                                                                                    <div class="darkreal"></div>
+                                                                                }
+                                                                            </a>
+                                                                        </li>
+                                                                    }
+                                                                </ul>
+                                                            </li>
+                                                                        }
+                                                    </ul>
+                                                </div>
+                                                                        }
+                                        </div>
+                                        @if (mainItem.Text.Text.StartsWith("API"))
+                                        {
+                                            <div class="container-fluid row" id="nav-bar-footer">
+                                                <div class="container" style="margin-bottom:10px;border-top-style:solid;border-top-width:1px;border-top-color:#505050;text-align:right;">
+                                                    <h3 id="hideWhenMobil" class="text--reg text--black text--xs hidden-xs" style="display:inline-block">
+                                                        @T("Still looking for the right API?")
+                                                    </h3>
+                                                    <a class="text--xs text--reg text--teal" style="margin-left:20px;" href="@HC("/apis")">
+                                                        @T("See the entire collection >")
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        }
+                                    </div>
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            <a href="@mainItem.Href.TrimEnd('/')" class="text--xs">@Html.Raw(mainItem.Text.Text)</a>
+                                                                        }
+                            </li>
+                                                                            }
+                                                                        }
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</div>

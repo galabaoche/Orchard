@@ -1,0 +1,283 @@
+@import "colors";
+
+@text--reg: segoe-ui-normal, "Microsoft YaHei", "微软雅黑", sans-serif;
+@text--bold: segoe-ui-bold, "Microsoft YaHei Bold", "微软雅黑 Bold", sans-serif;
+@text--semibold: segoe-ui-semibold, "Microsoft YaHei", "微软雅黑", sans-serif;
+@text--light: segoe-ui-light, "Microsoft YaHei Light", "微软雅黑 Light", sans-serif;
+@text--semilight: segoe-ui-semilight, "Microsoft YaHei", "微软雅黑", sans-serif;
+@text--italic: segoe-ui-italic, "Microsoft YaHei", "微软雅黑", sans-serif;
+
+.text--centered {
+    text-align: center;
+}
+
+.text--white{
+    color: @white;
+}
+
+.text--black{
+    color: @black;
+}
+
+.text--teal{
+    color: @teal;
+}
+
+.text--medgrey{
+    color: @med-grey;    
+}
+
+.text--lightblue{
+    a{
+        color:@light-blue;
+    }
+}
+
+@font-face{
+    font-family: "segoe-ui-normal";
+    src: url("//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.eot");
+    src: local("Segoe UI"), local("Segoe"), local("Segoe WP"), 
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.eot?#iefix") format("embedded-opentype"), 
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.woff") format("woff"), 
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/normal/latest.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face{
+    font-family: "segoe-ui-bold";
+    src: url("//i.s-microsoft.com/fonts/segoe-ui/west-european/bold/latest.eot");
+    src: local("Segoe UI Bold"), local("Segoe Bold"), local("Segoe WP Bold"), 
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/bold/latest.eot?#iefix") format("embedded-opentype"), 
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/bold/latest.woff") format("woff"), 
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/bold/latest.ttf") format("truetype");
+    font-weight: normal;
+     
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "segoe-ui-light";
+    src: url("//i.s-microsoft.com/fonts/segoe-ui/west-european/light/latest.eot");
+    src: local("Segoe UI Light"), local("Segoe WP Light"), 
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/light/latest.eot?#iefix") format("embedded-opentype"), 
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/light/latest.woff") format("woff"), 
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/light/latest.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+}
+
+@font-face {
+    font-family: "segoe-ui-semibold";
+    
+    src: url("//i.s-microsoft.com/fonts/segoe-ui/west-european/Semibold/latest.eot");
+    src: local("Segoe UI Semibold"), local("Segoe Semibold"), local("Segoe WP Semibold"),
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/Semibold/latest.eot?#iefix") format("embedded-opentype"), 
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/Semibold/latest.woff") format("woff"), 
+    
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/Semibold/latest.ttf") format("truetype");
+    
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "segoe-ui-semilight";
+    src: url("//i.s-microsoft.com/fonts/segoe-ui/west-european/semilight/latest.eot");
+    src: local("Segoe UI Semilight"), local("Segoe Semilight"), local("Segoe WP Semilight"), 
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/semilight/latest.eot?#iefix") 
+    format("embedded-opentype"), url("//i.s-microsoft.com/fonts/segoe-ui/west-european/semilight/latest.woff") format("woff"), 
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/semilight/latest.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "segoe-ui-italic";
+    src: url("//i.s-microsoft.com/fonts/segoe-ui/west-european/italic/latest.eot");
+    src: url("//i.s-microsoft.com/fonts/segoe-ui/west-european/italic/latest.eot?#iefix") 
+    format("embedded-opentype"), url("//i.s-microsoft.com/fonts/segoe-ui/west-european/italic/latest.woff") format("woff"), 
+    url("//i.s-microsoft.com/fonts/segoe-ui/west-european/italic/latest.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+ .text--reg{
+    font-family:@text--reg;
+}
+
+ .text--bold{
+    font-family:@text--bold;
+}
+
+ .text--semibold{
+    font-family:@text--semibold;
+}
+
+ .text--light{
+    font-family:@text--light;
+}
+
+ .text--semilight{
+    font-family:@text--semilight;
+}
+
+ .text--italic{
+    font-family:@text--italic;
+}
+
+.text--xlg {
+  font-size: 50px;
+  /*min size of font*/
+  line-height: 60px;
+  /*margin-bottom:20px;*/
+}
+
+/* Small devices (tablets, 768px and up) */
+@screen-sm-min: 768px;
+
+/* Medium devices (desktops, 992px and up) */
+@screen-md-min: 992px;
+
+/* Large devices (large desktops, 1200px and up) */
+@screen-lg-min: 1200px;
+
+@media (min-width: @screen-sm-min) {
+  .text--xlg {
+    font-size: 60px;
+    /*resize font*/
+    line-height: 70px;
+  }
+}
+@media all and (min-width: @screen-lg-min) {
+  .text--xlg {
+    font-size: 60px;
+    /*max size of font*/
+    line-height: 70px;
+  }
+}
+.text--lg {
+  font-size: 36px;
+  /*min size of font*/
+  line-height: 46px;
+}
+@media (min-width: @screen-sm-min) {
+  .text--lg {
+    font-size: 46px;
+    /*resize font*/
+    line-height: 56px;
+  }
+}
+@media all and (min-width: @screen-lg-min) {
+  .text--lg {
+    font-size: 46px;
+    /*max size of font*/
+    line-height: 56px;
+  }
+}
+.text--xxmd {
+  font-size: 34px;
+  /*max size of font*/
+  line-height: 48px;
+}
+.text--xmd {
+  font-size: 30px;
+}
+.text--md {
+  font-size: 26px;
+  /*min size of font*/
+  line-height: 36px;
+}
+@media all and (min-width: @screen-sm-min) {
+  .text--md {
+    font-size: 30px;
+    /*resize font*/
+    line-height: 42px;
+  }
+}
+@media all and (min-width: @screen-lg-min) {
+  .text--md {
+    font-size: 30px;
+    /*max size of font*/
+    line-height: 42px;
+  }
+}
+.text--smd {
+  font-size: 24px;
+  /*min size of font*/
+  line-height: 36px;
+}
+@media all and (min-width: @screen-sm-min) {
+.text--smd {
+    font-size: 24px;
+    /*resize font*/
+    line-height: 36px;
+  }
+}
+@media all and (min-width: @screen-lg-min) {
+  .text--smd {
+    font-size: 24px;
+    /*max size of font*/
+    line-height: 36px;
+  }
+}
+
+.text--sm {
+  font-size: 18px;
+  /*min size of font*/
+  line-height: 28px;
+}
+@media all and (min-width: @screen-sm-min) {
+.text--sm {
+    font-size: 20px;
+    /*resize font*/
+    line-height: 28px;
+  }
+}
+@media all and (min-width: @screen-lg-min) {
+  .text--sm {
+    font-size: 20px;
+    /*max size of font*/
+    line-height: 28px;
+  }
+}
+.text--xs {
+  font-size: 16px;
+  /*min size of font*/
+  line-height: 24px;
+}
+@media all and (min-width: @screen-sm-min) {
+  .text--xs {
+    font-size: 16px;
+    /*resize font*/
+    line-height: 24px;
+  }
+}
+@media all and (min-width: @screen-lg-min) {
+  .text--xs {
+    font-size: 16px;
+    /*max size of font*/
+    line-height: 24px;
+  }
+}
+.text--xxs {
+  font-size: 14px;
+  /*min size of font*/
+  line-height: 18px;
+}
+@media all and (min-width: @screen-sm-min) {
+  .text--xxs {
+    font-size: 14px;
+    /*resize font*/
+    line-height: 18px;
+  }
+}
+@media all and (min-width: @screen-lg-min) {
+  .text--xxs {
+    font-size: 14px;
+    /*max size of font*/
+    line-height: 18px;
+  }
+}

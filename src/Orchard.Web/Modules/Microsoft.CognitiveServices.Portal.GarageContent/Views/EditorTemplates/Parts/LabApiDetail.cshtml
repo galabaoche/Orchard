@@ -1,0 +1,512 @@
+﻿@using Newtonsoft.Json;
+@using Orchard.Environment.Configuration
+@model Microsoft.CognitiveServices.Portal.GarageContent.ViewModels.LabApiDetailPartViewModel
+
+@{
+    Style.Include(H("/Themes/CognitiveServices/Bootstrap/css/bootstrap.min.css"));
+    Style.Require("jQueryColorBox");
+    Style.Require("jQueryUI").AtHead();
+    Script.Require("jQueryUI").AtHead();
+    Script.Include(H("/Themes/CognitiveServices/Bootstrap/js/bootstrap.min.js")).AtHead();
+    Script.Require("jQueryColorBox").AtFoot();
+    Script.Require("jQueryUI_Sortable").AtHead();
+    Script.Include(H("/Themes/CognitiveServices/Scripts/angular.min.js")).AtHead();
+    Script.Include(H("/Themes/CognitiveServices/Scripts/angular-contenteditable.js")).AtHead();
+    Style.Require("LabApi-Edit-Feature-Style");
+
+    var urlPrefix = WorkContext.Resolve<ShellSettings>().RequestUrlPrefix;
+    if (!String.IsNullOrWhiteSpace(urlPrefix))
+    {
+        urlPrefix += "/";
+    }
+
+    var titleHelperText = T("name of the Lab Api.");
+    var weightText = T("Order of the api gallery page");
+    var descriptionHelperText = T("Summary of what the Lab Api does, up to 150 characters.");
+    var headerImageHelperText = T("Hero image for the product");
+    var documentationLinkHelperText = T("Please provide the relative url to the documentation.");
+    var galleryImageHelperText = T("Square image for the product that shows up on the gallery");
+    var captionHelperText = T("Shorter version of the description");
+    var featureSectionHeaderText = T("Call out the feature section with a brief sentence.");
+    var featureNameHelperText = T("Provide the name of the feature.");
+    var featureDescriptionHelperText = T("Explain how the feature works as well provide a brief paragraph on how the demo (if applicable) works");
+    var featureImageHelperText = T("Specify an image when demo is not available.");
+    var featureExternalDemoUrlHelperText = T("External demo url used to show in the feature section.");
+
+    var order = 0;
+    var links = Model.Features;
+}
+<script>
+    var projectOxfordApp = angular.module('projectOxfordApp', ['contenteditable']);
+</script>
+
+<div ng-app="projectOxfordApp" ng-controller="labApiDetailPartController">
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <span class="glyphicon glyphicon-flag"></span>
+                @T("Lab Api Description Section")
+            </h3>
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <div class="editor-label">
+                    <label for="@Html.FieldIdFor(model => model.Title)" class="required">@T("Lab Api Name")</label>
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Title, new { @class = "form-control", autofocus = "autofocus", placeholder = titleHelperText })
+                    @Html.ValidationMessageFor(model => model.Title)
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="editor-label">
+                    <label for="@Html.FieldIdFor(model => model.Weight)">@T("Weight")</label>
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Weight, new { @class = "form-control", autofocus = "autofocus", placeholder = weightText })
+                    @Html.ValidationMessageFor(model => model.Weight)
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="editor-label">
+                    <label for="@Html.FieldIdFor(model => model.Description)" class="required">@T("Description")</label>
+                </div>
+                <div class="editor-field">
+                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", placeholder = descriptionHelperText, rows = 2 })
+                    @Html.ValidationMessageFor(model => model.Description)
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="editor-label">
+                    <label for="@Html.FieldIdFor(model => model.Caption)">@T("Caption")</label>
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.Caption, new { @class = "form-control", placeholder = captionHelperText })
+                    @Html.ValidationMessageFor(model => model.Caption)
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="editor-field">
+                    <span>@T("The status of this product is:")</span>
+                    @Html.DropDownListFor(model => model.LabApiStatus, Model.LabApiStatusTypes, new { id = "labApiStatus" })
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="editor-label">
+                    <label for="@Html.FieldIdFor(model => model.HeaderImageUrl)">@T("Header Image")</label>
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.HeaderImageUrl, new { @class = "form-control", placeholder = headerImageHelperText, id = "headerImageUrl" })
+                    @Html.ValidationMessageFor(model => model.HeaderImageUrl)
+                    <span class="button btn-add-image addImage" ng-click="updateMediaUrl(1)">
+                        <span class="glyphicon glyphicon-picture"></span>
+                        @T("Select image...")
+                    </span>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="editor-label">
+                    <label for="@Html.FieldIdFor(model => model.GalleryImageUrl)">@T("Square Image")</label>
+                </div>
+                <div class="editor-field">
+                    @Html.TextBoxFor(model => model.GalleryImageUrl, new { @class = "form-control", placeholder = galleryImageHelperText, id = "galleryImageUrl" })
+                    @Html.ValidationMessageFor(model => model.GalleryImageUrl)
+                    <span class="button btn-add-image addImage" ng-click="updateMediaUrl(2)">
+                        <span class="glyphicon glyphicon-picture"></span>
+                        @T("Select image...")
+                    </span>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+    <fieldset>
+        <div id="linksPart">
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <span class="glyphicon glyphicon-film"></span>
+                            @T("Lab Api Feature Section") ({{ links.length }} features)
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <fieldset>
+                            <div id="grouplinksAccordion">
+                                <div class="panel-group" ng-repeat="link in links | orderBy: 'sortorder' track by $index">
+                                    <div class="panel panel-default item editable-container" ng-attr-linkid="{{link.id}}">
+                                        <div class="panel-heading" role="tab" ng-attr-id="{{ 'heading-' + link.id }}">
+                                            <h4 class="panel-title">
+                                                <div class="moveIcon"></div>
+                                                <div class="skypePanelTitle">{{link.sortorder}}. {{ link.name }}</div>
+                                                <div class="skypeAdminEditRemoveLinks">
+                                                    <a href="#" data-toggle="collapse"
+                                                       data-parent="#grouplinksAccordion" ng-attr-href="{{ '#collapse-' + link.id }}">
+                                                        Edit
+                                                    </a>
+                                                    <span>|</span>
+                                                    <a href="#" ng-click="removelink($index)">Remove</a>
+                                                </div>
+                                            </h4>
+                                        </div>
+                                        <div ng-attr-id="{{ 'collapse-' + link.id }}" class="panel-collapse collapse item">
+                                            <div class="editable-container">
+                                                <fieldset>
+                                                    @Html.LabelFor(m => m.Features[order].Name, T("Feature Name"))
+                                                    <input class="form-control" type="text" ng-value="link.title" ng-model="link.name" ng-change="editlinkHelper[$index].name=link.name" placeholder="@featureNameHelperText" />
+                                                </fieldset>
+                                                <fieldset>
+                                                    @Html.LabelFor(m => m.Features[order].Description, T("Description"))
+                                                    <textarea class="form-control" rows="4" cols="20" ng-model="link.description" ng-value="editlinkHelper[$index].description=link.description" placeholder="@featureDescriptionHelperText"></textarea>
+                                                </fieldset>
+                                                <fieldset>
+                                                    @Html.LabelFor(m => m.Features[order].ImageUrl, T("Image Url"))
+                                                    <input class="form-control text" ng-model="link.imageurl" ng-value="link.imageUrl" />
+                                                    <span class='hint'>Provide a url or click the button below to select an uploaded image.</span>
+                                                    <span class="button btn-add-image addImage" ng-click="updateMediaUrl(-1, link)">
+                                                        @T("Change image...")
+                                                    </span>
+                                                </fieldset>
+                                                <fieldset>
+                                                    @Html.LabelFor(m => m.Features[order].FeatureContainer, T("External Demo URL"))
+                                                    <input class="form-control" type="text" ng-value="link.featureContainer" ng-model="link.featureContainer" ng-change="editlinkHelper[$index].featureContainer=link.featureContainer" placeholder="@featureExternalDemoUrlHelperText" />
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <fieldset>
+                                    @Html.HiddenFor(m => m.FeaturesJson, new { @ng_value = "featuresAsJSONString" })
+                                </fieldset>
+                            </div>
+
+                            @*ADD NEW LINK PANEL*@
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h3 class="panel-title">
+                                        <span class="glyphicon glyphicon-plus"></span>
+                                        @T("Add new feature")
+                                        <span class="hint" style="font-size:small;margin-top:5px">For each feature, fill out the input boxes and click Add Feature button.</span>
+                                    </h3>
+                                </div>
+                                <div class="panel-body">
+                                    <div id="newItemContainer" class="editable-container">
+                                        <fieldset>
+                                            <label class="control-label">@T("Feature Name")</label>
+                                            <input id="newItemName" type="text" class="form-control" placeholder="@featureNameHelperText" ng-model="addItemName" ng-value="addItemName" />
+                                        </fieldset>
+                                        <fieldset>
+                                            <label class="control-label">@T("Description")</label>
+                                            <textarea id="newItemDescription" class="form-control" placeholder="@featureDescriptionHelperText" rows="4" cols="20" ng-model="addItemDescription" ng-value="addItemDescription"></textarea>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label class="control-label">@T("Image URL")</label>
+                                            <input id="newImageUrl" type="text" class="form-control" ng-model="addImageUrl" ng-value="addImageUrl" placeholder="@featureImageHelperText" />
+                                            <span class='hint'>Provide an url or click the button below to select an uploaded image.</span>
+                                            <span class="button btn-add-image addImage" ng-click="updateMediaUrl(0)">
+                                                <span class="glyphicon glyphicon-picture"></span>
+                                                @T("Select image...")
+                                            </span>
+                                        </fieldset>
+                                        <fieldset>
+                                            <label class="control-label">@T("External Demo URL")</label>
+                                            <input id="newItemFeatureContainer" type="text" class="form-control" placeholder="@featureExternalDemoUrlHelperText" ng-model="addItemFeatureContainer" ng-value="addItemFeatureContainer" />
+                                        </fieldset>
+                                        <fieldset>
+                                            <span id="addlink" class="button" ng-click="addlink()">
+                                                @T("Add Feature")
+                                            </span>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <h3>@T("Fields below are optional. You do not have to fill below the line.")</h3>
+    </fieldset>
+    <fieldset>
+        <HR WIDTH="75%" COLOR="#FF0000" SIZE="4">
+    </fieldset>
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3 class="panel-title">
+                <span class="glyphicon glyphicon-download"></span>
+                @T("Links")
+            </h3>
+        </div>
+        <div class="panel-body">
+            <fieldset>
+                <div class="editor-label">
+                    <label>@T("Documentation Link")</label>
+                </div>
+                <div class="editor-field">
+                    <span class="permalink-definition" dir="ltr">
+                        <span>@Html.TextBoxFor(m => m.DocumentationLink, new { @class = "form-control" })</span>
+                    </span>
+                    @Html.ValidationMessageFor(model => model.DocumentationLink)
+                </div>
+            </fieldset>
+
+            <fieldset>
+                <div class="editor-label">
+                    <label>@T("Subscribe Link")</label>
+                </div>
+                <div class="editor-field">
+                    <span class="permalink-definition" dir="ltr">
+                        <span>@Html.TextBoxFor(m => m.SubscribeLink, new { @class = "form-control" })</span>
+                    </span>
+                    @Html.ValidationMessageFor(model => model.SubscribeLink)
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="editor-label">
+                    <label>@T("API Reference Link")</label>
+                </div>
+                <div class="editor-field">
+                    <span class="permalink-definition" dir="ltr">
+                        <span>@Html.TextBoxFor(m => m.ApiReferenceUrl, new { @class = "form-control" })</span>
+                    </span>
+                    @Html.ValidationMessageFor(model => model.ApiReferenceUrl)
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="editor-label">
+                    <label>@T("SDK Link")</label>
+                </div>
+                <div class="editor-field">
+                    <span class="permalink-definition" dir="ltr">
+                        <span>@Html.TextBoxFor(m => m.SDKLink, new { @class = "form-control" })</span>
+                    </span>
+                    @Html.ValidationMessageFor(model => model.SDKLink)
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</div>
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        function Link(data) {
+            this.name = data.Name;
+            this.description = data.Description;
+            this.sortorder = data.SortOrder;
+            this.imageurl = data.ImageUrl;
+            this.id = data.Id;
+            this.featureContainer = data.FeatureContainer;
+        }
+
+        projectOxfordApp.controller('labApiDetailPartController', [
+            '$scope', '$log', function($scope, $log) {
+
+                var rawlinks = @Html.Raw(JsonConvert.SerializeObject(Model.Features));
+                $scope.editlinkHelper = [];
+                $scope.imageHelper = [];
+                $scope.sortIndices = [];
+                $scope.isExternalLink = false;
+                $scope.resourceTypeSelector = "";
+
+                var linkCount = 0;
+                var pricingCount=0;
+                $scope.links = $.map(rawlinks, function(link) {
+                    var newlink = new Link(link);
+
+                    $scope.editlinkHelper.push({
+                        header: newlink.name,
+                        description: newlink.description,
+                        featureContainer: newlink.featureContainer,
+                        sortorder:newlink.sortorder,
+                        id: newlink.id
+                    });
+
+                    linkCount++;
+                    return newlink;
+                });
+                $scope.links.sort(function(a,b){return a.sortorder - b.sortorder});
+
+                $scope.getfeaturesAsJSONString = function() {
+                    return angular.toJson($scope.links);
+                }
+
+                $scope.featuresAsJSONString = $scope.getfeaturesAsJSONString();
+
+                $scope.$watch('links', function(newValue, oldValue) {
+                    $scope.featuresAsJSONString = $scope.getfeaturesAsJSONString();
+                }, true);
+
+
+
+                $scope.updateLinkUrlHelper = function(link, index) {
+                    $log.log('blah blah blah...');
+                    $log.log(link.url, index);
+                    createNewImage(link.url, index);
+                }
+
+                function createNewImage(url, index) {
+                    var img = new Image();
+                    img.onload = function() {
+                        $scope.editlinkHelper[index].url = img;
+                        $log.log('yo', index);
+                        $scope.$apply();
+                    }
+                    img.src = url;
+                    return img;
+                }
+
+                $scope.addlinkTitle = '';
+                $scope.addlinkType = '';
+
+
+                $scope.newImage = null;
+                $scope.newImageURL = '';
+                $scope.newVideoURL = '';
+                $scope.newImageCorrectSize = null;
+                $scope.addItemLinkText = '';
+                $scope.addItemExternalLink = '';
+
+                $scope.$watch('newImageURL', function(newURL, oldURL) {
+                    $log.log('new image url changed...', newURL);
+                    var img = new Image();
+                    img.onload = function() {
+                        $scope.newImageCorrectSize = (img.width == 720 && img.height == 472);
+                        $scope.newImage = img;
+                        $log.log('new image: ', $scope.newImage.width, $scope.newImage.height);
+                        $scope.$apply();
+                    }
+
+                    img.src = newURL;
+                });
+
+                $scope.removelink = function(index) {
+                    if (!confirm(confirmRemoveMessage)) {
+                        return false;
+                    }
+                    $scope.links.splice(index, 1);
+                    $scope.links.forEach(function(item){
+                        if(item.sortorder > index)
+                            item.sortorder--;
+                    });
+                    $(".links-message").show();
+
+                    $scope.featuresAsJSONString = $scope.getfeaturesAsJSONString();
+                }
+
+                $scope.addlink = function() {
+                    var name = $("#newItemName");
+                    var description = $("#newItemDescription");
+                    var imageUrl = $("#newImageUrl");
+                    var featureContainer = $("#newItemFeatureContainer");
+
+
+                    var nameValue = name.val().trim();
+                    var descValue = description.val().trim();
+                    var imageUrlValue = imageUrl.val();
+                    var featureContainerValue = featureContainer.val();
+
+
+                    var newId = 0;
+                    $scope.links.filter(function(link) {
+                        if(link.id <= newId)
+                        {
+                            newId = link.id-1;
+                        }
+                    });
+
+                    $scope.links.push(new Link({
+                        Name: nameValue,
+                        Description: descValue,
+                        SortOrder: $scope.links.length + 1,
+                        ImageUrl: imageUrlValue,
+                        Id: newId,
+                        FeatureContainer:featureContainerValue,
+                    }));
+
+                    name.val("");
+                    description.val("");
+                    imageUrl.val("");
+                    featureContainer.val("");
+
+
+                    $scope.featuresAsJSONString = $scope.getfeaturesAsJSONString();
+
+                    $(".links-message").show();
+                }
+
+                $scope.updateMediaUrl = function(staticFieldId, updatedItem) {
+
+                    var url = '@HttpUtility.JavaScriptStringEncode(Url.Action("Index", "Admin", new {area = "Orchard.MediaLibrary", dialog = true}))';
+                    $.colorbox({
+                        href: url,
+                        iframe: true,
+                        reposition: true,
+                        width: "100%",
+                        height: "100%",
+                        onLoad: function() {
+                            $('html, body').css('overflow', 'hidden');
+                            $('#cboxClose').remove();
+                        },
+                        onClosed: function() {
+                            $('html, body').css('overflow', '');
+                            var selectedData = $.colorbox.selectedData;
+                            $log.log(selectedData);
+
+                            if (selectedData == null)
+                                return;
+                            if (selectedData && updatedItem) {
+                                $log.log('updating item...');
+                                updatedItem.imageurl = selectedData[0].resource;
+                                $scope.featuresAsJSONString = $scope.getfeaturesAsJSONString();
+                            } else if(staticFieldId==0) {
+                                $log.log('adding new image...');
+                                $('#newImageUrl').val(selectedData[0].resource);
+                                $scope.newImageURL = selectedData[0].resource;
+                            } else if(staticFieldId==1) {
+                                $log.log('adding new image...');
+                                $('#headerImageUrl').val(selectedData[0].resource);
+                            } else if(staticFieldId==2) {
+                                $log.log('adding new image...');
+                                $('#galleryImageUrl').val(selectedData[0].resource);
+                            }
+                            $scope.$apply();
+                        }
+                    });
+                }
+
+                $('.save-button button.primaryAction').click(function() {
+                    $scope.featuresAsJSONString = $scope.getfeaturesAsJSONString();
+                    $log.log($scope.featuresAsJSONString);
+                });
+
+
+                $("#grouplinksAccordion").sortable({
+                    axis: 'y',
+                    containment: 'parent',
+                    update: function () {
+
+                        $("#grouplinksAccordion .panel.item").each(function (index) {
+
+                            var t = $(this).contents().find('.skypePanelTitle').html();
+                            var id = $(this).attr('linkId');
+                            var newSortOrder = index + 1;
+
+                            $scope.links.filter(function(link) {
+                                return link.id == id;
+                            })[0].sortorder = newSortOrder;
+                        });
+
+                        $scope.featuresAsJSONString = $scope.getfeaturesAsJSONString();
+                        $scope.$apply();
+                    }
+                });
+            }
+        ]);
+    </script>
+}

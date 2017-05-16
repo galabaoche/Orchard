@@ -1,0 +1,114 @@
+@import "colors";
+@import "typography";
+
+:target:before {
+    content: "";
+    display: block;
+    height: 90px; /* fixed header height*/
+    margin: -90px 0 0; /* negative fixed header height */
+}
+
+.api-gallery-page {
+    @media(max-wdith:768px) {
+        margin-top: -@content-padding-top + 20px;
+    }
+
+    .banded-row {
+        padding: 50px 0;
+
+        h1 {
+            margin-top: 0;
+            margin-bottom: 50px;
+            .text--black;
+            .text--light;
+        }
+
+        &:nth-child(odd) {
+            background-color: @lt-grey;
+        }
+
+        h3 {
+            .text--light;
+            .text--centered;
+            .text--teal;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .promo-status-bar {
+            text-align: center;
+
+            .preview-tag {
+                .text--semilight;
+                font-style: italic !important;
+                margin: 0 5px 0 auto;
+                color: @med-grey;
+            }
+
+            .promostatus-tag {
+                .text--reg;
+                margin: 0 auto 0 5px;
+                padding: 0 5px;
+                color: @black;
+            }
+
+            .promostatus-tag[data="New"] {
+                background-color: @med-yellow;
+            }
+
+            .promostatus-tag[data="Updated"] {
+                background-color: @yellow;
+            }
+        }
+
+        p {
+            .text--reg;
+            .text--centered;
+            margin: 20px 0 0 0;
+        }
+
+        .api-detail-page {
+            img {
+                width: 350px;
+                height: 175px;
+            }
+        }
+
+        @media (max-width: 960px) {
+            h3 {
+                margin-top: 20px;
+            }
+
+            p {
+                margin-bottom: 100px;
+            }
+
+            img {
+                margin: 0 auto;
+            }
+        }
+
+        .clearfix {
+            margin-bottom: 50px;
+        }
+
+        .api-gallery-related {
+            h1 {
+                .text--centered;
+            }
+
+            img {
+                width:175px;
+                height: 175px;
+                display: block;
+                margin: 0 auto;
+            }
+        }
+    }
+}
+
+@media (max-width : 768) {
+    .api-gallery-page {
+        margin-top: -30px;
+    }
+}

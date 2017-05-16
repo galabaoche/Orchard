@@ -1,0 +1,181 @@
+@import "colors";
+@import "typography";
+@mobile-header-margin-top: 140px;
+@compitable-loginimg: 50px;
+
+@media (max-width: @screen-sm-min) {
+    .pricing-item {
+        margin-bottom: 15px;
+    }
+
+    .apidetail-featured-content-imgwrap {
+        margin-right: 0px;
+    }
+
+    .apidetail-featured-content-imgwrap > img.apidetail-featured-content-img {
+        width: 100%;
+    }
+
+    .appgallery-view-listview {
+        display: none;
+    }
+
+    .appdetail-builtusingitem {
+        margin-bottom: 15px;
+    }
+
+    .appdetail-content-imgwrap {
+        margin: 0px;
+    }
+
+    .appdetail-content-imgwrap img.appdetail-content-img {
+        margin: 0 0 20px 0;
+    }
+
+    .appdetail-gallery-content-imgwrap img.appdetail-gallery-content-img {
+        max-width: 278px;
+        max-height: 278px;
+    }
+
+    .main-navigation {
+        /*margin-left: -15px;
+        margin-right: -15px;
+        padding-right: 0;*/
+    }
+}
+// styles for API Detail page on mobile screen
+.mobile-compatible {
+    @media (max-width: @screen-md-min) {
+        .hero-banner__content {
+            /*margin-top: -40px;*/
+        }
+
+        .hero-banner-container {
+            min-height: 0;
+            height: 300px !important;
+
+            .h1 {
+                margin-top: 0 !important;
+            }
+        }
+
+        .detection-demo {
+            min-width: 0 !important;
+        }
+
+        .demo-content, .Celebrity-demo-content {
+            min-width: 0px !important;
+            width: 100% !important;
+        }
+
+        .detection-demo-right, .Celebrity-demo-right, .video-demo-right, .detection-demo-left, .detection-demo-result {
+            border: 1px solid #fff;
+            float: none !important;
+            min-width: 0 !important;
+            width: 100% !important;
+            display: block !important;
+            margin-top: 50px;
+        }
+        .Celebrity-demo-right{
+            margin-top:20px;
+        }
+        .image-arrow {
+            font-size: 2.5em;
+            float: left;
+            width: 10px;
+            line-height: 3.3em;
+            cursor: pointer;
+        }
+
+        .detection-demo .image-list .image-item {
+            width: 29%;
+        }
+
+        .detection-demo .image-list {
+            width: 95%;
+        }
+
+        .image-left-arrow {
+            color: #808080;
+            line-height: 2.3em;
+            margin-left: -14px;
+            margin-right: 23px;
+        }
+
+        .image-right-arrow {
+            color: @teal;
+            line-height: 2.2em;
+            margin-left: -10px;
+        }
+
+        .only-mobile-display {
+            display: block;
+        }
+
+        .display {
+            display: block;
+        }
+
+        .only-mobile-hide {
+            display: none;
+        }
+
+        .image-list-second {
+            margin-top: 0;
+        }
+
+        #Thumbnail .image-item {
+            width: 29%;
+        }
+
+        .pricing-section-content {
+            padding-left: 0;
+        }
+
+        .detection-identification-demo {
+            margin-top: 270px;
+        }
+
+        .audioList .audioItem {
+            margin-left: 0;
+            width: 100% !important;
+            margin-top: 30px;
+        }
+
+        .preview-thumbnail {
+            width: 50%;
+        }
+
+        .feature-item-content__demo {
+            .demo-btn-list {
+                text-align: center;
+            }
+
+            .demo-btn {
+                width: 66.6%;
+                margin-top: 20px;
+            }
+        }
+
+        #identification .image-list .image-item {
+            width: 33% !important;
+        }
+
+        .quote-section--teal {
+            padding-top: 30px;
+            padding-bottom: 40px;
+        }
+
+        .api-resources-section {
+            padding-bottom: 20px;
+
+            H2 {
+                padding-bottom: 0;
+            }
+        }
+
+        .upLoadText {
+            top: calc(50% - 30px);
+        }
+    }
+}

@@ -1,0 +1,99 @@
+﻿#: "~/Themes/CognitiveServices/Views/Branding.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Branding.cshtml"
+msgid "Cognitive Services"
+msgstr "认知服务"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "News"
+msgstr "新闻"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Blogs"
+msgstr "博客"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Contact us"
+msgstr "联系我们"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Privacy & Cookies"
+msgstr "隐私与 Cookies"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Website Terms of Use"
+msgstr "本站使用条款"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Developer Code of Conduct"
+msgstr "开发者行为准则"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Trademarks"
+msgstr "商标"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Report Abuse"
+msgstr "举报"
+
+#: "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgid "Privacy & Cookies"
+msgstr "隐私与 Cookies"
+
+#: "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgid "Website Terms of Use"
+msgstr "本站使用条款"
+
+#: "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgid "Developer Code of Conduct"
+msgstr "开发者行为准则"
+
+#: "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgid "Trademarks"
+msgstr "商标"
+
+#: "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgid "Report Abuse"
+msgstr "举报"
+
+#: "~/Themes/CognitiveServices/Views/Items/Menu.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Items/Menu.cshtml"
+msgid "Cognitive Services"
+msgstr "认知服务"
+
+#: "~/Themes/CognitiveServices/Views/Items/Menu.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Items/Menu.cshtml"
+msgid "Still looking for the right API?"
+msgstr "还在寻找合适的API？"
+
+#: "~/Themes/CognitiveServices/Views/Items/Menu.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Items/Menu.cshtml"
+msgid "See the entire collection >"
+msgstr "浏览所有API >"
+
+#: "~/Themes/CognitiveServices/Views/Items/Content-Documentation.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Items/Content-Documentation.cshtml"
+msgid "Documentation"
+msgstr "文档"
+
+#: "~/Themes/CognitiveServices/Views/BlogPost/ListByArchive.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/BlogPost/ListByArchive.cshtml"
+msgid "Monthly archives: "
+msgstr "月度归档: "
+
+#: "~/Themes/CognitiveServices/Views/Parts.Tags.ShowTags-BlogPost.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Parts.Tags.ShowTags-BlogPost.cshtml"
+msgid "Tags: "
+msgstr "标签: "

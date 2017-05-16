@@ -1,0 +1,47 @@
+﻿
+@using Orchard.Utility.Extensions;
+@{
+    var contentTypeClassName = ((string)Model.ContentItem.ContentType).HtmlClassify();
+    Style.Include("github-markdown.min.css").SetAttribute("data-timestamped", "true");
+
+    using (Script.Head())
+    {
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('a[name^="user-content-"]').each(function (i, a) {
+                    $(this).prop('name', a.name.replace('user-content-', ''));
+                }); 
+            });
+        </script>
+    }
+
+    Layout.Title += T("Documentation").Text;
+}
+
+<style> 
+    .markdown-body {
+        box-sizing: border-box;
+        min-width: 200px;
+        margin: 0 auto;
+    } 
+</style>
+
+<article class="markdown-body">
+    <div class="container-fluid">
+        <div class="row">
+            @Display(Model.Content)
+        </div>
+    </div>
+</article>
+
+<hr />
+
+<div class="container-fluid" style="margin-bottom:30px;">
+    <div class="text--reg text--xxs text--black">
+        Edit on <a href="http://go.microsoft.com/fwlink/p/?LinkID=780775" onclick="ga('send', 'event', 'outbound', 'gitHub', 'docFooter');" target="_blank">Github</a>
+        <span style="margin-left:20px;margin-right:20px">|</span>
+        Join our community on 
+        <a href="https://stackoverflow.com/questions/tagged/project-oxford+or+microsoft-cognitive" onclick="ga('send', 'event', 'outbound', 'stackOverflow', 'docFooter');" target="_blank">StackOverflow</a> and
+        <a href="https://cognitive.uservoice.com/" onclick="ga('send', 'event', 'outbound', 'userVoice', 'docFooter');" target="_blank">UserVoice</a>
+    </div>
+</div>

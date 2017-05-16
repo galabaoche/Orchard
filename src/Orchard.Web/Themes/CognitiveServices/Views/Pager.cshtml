@@ -1,0 +1,46 @@
+﻿@{
+    <style type="text/css">
+        .oxford-pager {
+            padding-left: 0;
+            margin-top: 40px;
+            text-align: center;
+            list-style: none;
+        }
+
+            .oxford-pager li {
+                display: inline;
+            }
+
+                .oxford-pager li > a:hover {
+                    background-color: #eee;
+                }
+
+                .oxford-pager li > a, .oxford-pager li > span {
+                    display: inline-block;
+                    padding: 5px 14px;
+                    background-color: #fff;
+                    border-radius: 15px;
+                    text-decoration: none;
+                }
+
+        @@media (max-width: 768px) {
+            .oxford-pager li > a, .oxford-pager li > span {
+                padding: 5px 8px;
+            }
+        }
+    </style>
+}
+
+
+@{
+    if (Math.Ceiling((double)Model.TotalItemCount / Model.PageSize)<=1)
+    {
+        return;
+    }
+    Model.PreviousText = T("<");
+    Model.NextText = T(">");
+    Model.Classes.Add("group");
+    Model.Metadata.Alternates.Clear();
+    Model.Metadata.Type = "Oxford_Pager_Links";
+}
+@Display(Model)

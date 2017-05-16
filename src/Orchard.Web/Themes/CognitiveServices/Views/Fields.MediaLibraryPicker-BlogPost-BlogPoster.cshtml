@@ -1,0 +1,17 @@
+﻿@using Orchard.ContentManagement
+@using Orchard.MediaLibrary.Fields
+@using Orchard.Utility.Extensions;
+
+@{
+    var field = (MediaLibraryPickerField) Model.ContentField;
+    string displayName = field.DisplayName;
+    string name = field.Name;
+    var contents = field.MediaParts;
+}
+<section class="media-library-picker-field media-library-picker-field-@name.HtmlClassify()">
+    @foreach(var content in contents) {
+    <div class="blogposter">
+        @Display(BuildDisplay(content, "Detail"))
+    </div>
+    }
+</section>

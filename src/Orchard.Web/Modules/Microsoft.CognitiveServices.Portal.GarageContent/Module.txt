@@ -1,0 +1,8 @@
+﻿Name: Microsoft.CognitiveServices.Portal.GarageContent
+Path: GarageContent
+AntiForgery: enabled
+Author: Cognitive Services Team
+Website: https://www.microsoft.com/cognitive-services
+Category: Cognitive Services
+Version: 1.0
+OrchardVersion: 1.0

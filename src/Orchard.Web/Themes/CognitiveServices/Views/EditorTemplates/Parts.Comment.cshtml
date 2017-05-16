@@ -1,0 +1,62 @@
+@using System
+@using System.Linq
+@using Orchard.Core.Common.Fields
+
+@model Orchard.Comments.Models.CommentPart
+
+@{
+    var capital = string.Empty;
+
+    if (WorkContext.CurrentUser != null)
+    {
+        var user = (TextField)WorkContext.CurrentUser.ContentItem.Parts
+            .SelectMany(p => p.Fields).FirstOrDefault(f => string.Equals(f.Name, "displayname", StringComparison.InvariantCultureIgnoreCase));
+        
+        if (user != null && user.Value != null)
+        {
+            capital = user.Value.Substring(0, 1);
+        }
+    }
+}
+
+@if (WorkContext.CurrentUser == null) {
+    <fieldset class="who">
+        <legend id="add-comment">@T("Add a Comment")</legend>
+        <ol>
+            <li>
+                @Html.LabelFor(m => m.Author, T("Name"))
+                @Html.TextBoxFor(m => m.Author)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.Email, T("Email"))
+                @Html.TextBoxFor(m => m.Email)
+            </li>
+            <li>
+                @Html.LabelFor(m => m.SiteName, T("Url"))
+                @Html.TextBoxFor(m => m.SiteName)
+            </li>
+        </ol>
+    </fieldset>
+}
+else {
+    @Html.Hidden("Name", WorkContext.CurrentUser.UserName ?? "")
+    @Html.Hidden("Email", WorkContext.CurrentUser.Email ?? "")
+}
+
+@if (WorkContext.CurrentUser != null) { 
+    <span class="comment-icon">@capital</span>
+    <h2 id="commenter" hidden>
+        @if (WorkContext.CurrentUser != null) { 
+            @T("Hi, {0}!", Convert.ToString(Html.ItemDisplayText(WorkContext.CurrentUser)))
+        }
+    </h2> 
+}
+<fieldset class="what">
+    <ol>
+        <li>
+            @Html.TextAreaFor(m => m.CommentText, new { rows = 2, cols = 30, @class = "comment-text" })
+        </li>
+    </ol>
+    @Html.HiddenFor(m => m.CommentedOn)
+    @Html.HiddenFor(m => m.RepliedOn)
+</fieldset>

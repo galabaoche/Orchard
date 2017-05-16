@@ -1,0 +1,66 @@
+@import "typography";
+
+.appdetail-list-container {
+    background-color: #ededed;
+    border: 1px solid #ededed;
+    margin: 30px 0;
+    cursor: pointer;
+}
+
+.appdetail-list-container:hover {
+    border: 1px solid @teal;
+}
+
+.appdetail-list-content-imgwrap {
+    margin-right: 20px;
+    margin-left: 0px;
+    vertical-align: middle;
+    display: inline-block;
+}
+
+.appdetail-list-content-info {
+    vertical-align: middle;
+    display: inline-block;
+    max-width: 65%;
+    overflow: hidden;
+
+    .splitSlash:last-child {
+        display: none;
+    }
+
+    .appdetail-description {
+        height: 54px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+    }
+}
+
+.appdetail-list-content-imgwrap img.appdetail-list-content-img {
+    max-width: 146px;
+    height: 146px;
+}
+
+.appdetail-list-builtusing-img {
+    margin-left: 15px;
+    margin-right: 0px;
+    display: inline-block;
+    max-width: 100%;
+    height: auto;
+    width: 23px;
+    height: 23px;
+}
+
+.appdetail-list-small-margin {
+    margin: 15px 0;
+}
+
+.appdetail-list-learn-more {
+    vertical-align: middle;
+    margin-right: 22px;
+    display: inline-block;
+    float: right;
+    margin-top: 50px;
+}

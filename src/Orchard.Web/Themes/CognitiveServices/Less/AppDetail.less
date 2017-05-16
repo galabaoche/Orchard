@@ -1,0 +1,226 @@
+@import "params";
+@import "typography";
+@import "AppDetail.Featured";
+@import "AppDetail.Gallery";
+@import "AppDetail.List";
+
+.appdetail-info {
+    float: left;
+    text-align: left;
+}
+
+.ed_layout {
+    padding-top: @content-padding-top+70px;
+    overflow: hidden;
+    /*background-color: @lt-grey;*/
+    color: @med-grey;
+}
+
+.appdetail-iconimg {
+    width: 140px;
+    height: 140px;
+    margin-right: 30px;
+    float: left;
+}
+
+.appdetail-platform {
+    float: right;
+    list-style-type: none;
+}
+
+@media (max-width: @screen-sm-min) {
+    .appdetail-info {
+        float: initial;
+    }
+
+    .ed_layout {
+        padding-top: @herobanner-mobile;
+        overflow: hidden;
+        /*background-color: @lt-grey;*/
+        color: @med-grey;
+        text-align: center;
+    }
+
+    .appdetail-iconimg {
+        width: 0;
+        height: auto;
+        margin-right: auto;
+        float: left;
+        margin: 0 auto;
+        visibility: hidden;
+    }
+
+    .appdetail-platform {
+        padding-left: 0;
+        float: left;
+    }
+}
+
+.appdetail-platform .appdetail-platform-item {
+    margin-right: 25px;
+    display: inline-block;
+}
+
+.appdetail-platform-item-imgwrap {
+    position: relative;
+    margin: 0 auto;
+    padding-bottom: 1.5em;
+    width: 4em;
+    height: 4em;
+}
+
+.appdetail-platform-item-imgwrap:before {
+    position: absolute;
+    top: 10%;
+    left: 10%;
+    display: block;
+    content: "";
+    text-indent: -10em;
+    width: 80%;
+    height: 80%;
+    background-color: @lt-grey;
+    border-radius: 50%;
+}
+
+.appdetail-platform-item-imgwrap:after {
+    position: absolute;
+    left: 50%;
+    bottom: -1em;
+    transform: translateX(-50%);
+    content: attr(data-platform-name);
+    white-space: nowrap;
+}
+
+.ed_selected .appdetail-platform-item-imgwrap:before {
+    background-color: #008272;
+}
+
+.ed_selected.appdetail-platform-item:hover {
+    color: @darkteal;
+    cursor: pointer;
+    transform: translate(0,-7px);
+    -webkit-transition: 300ms;
+    -moz-transition: 300ms;
+    -o-transition: 300ms;
+}
+
+.ed_selected:hover .appdetail-platform-item-imgwrap:before {
+    background-color: @darkteal;
+}
+
+.appdetail-platform .appdetail-platform-item .appdetail-platform-item-iconimg {
+    position: absolute;
+    top: 20%;
+    left: 20%;
+    width: 60%;
+}
+
+.appdetail-platform .ed_selected {
+    color: @teal;
+}
+
+.appdetail-content {
+    overflow-y: hidden;
+    padding-top: 40px;
+}
+
+.appdetail-content-imgwrap {
+    float: left;
+    margin: 0 40px 0 0;
+    position: relative;
+    max-width: 720px;
+    max-height: 405px;
+    display: inline-table;
+}
+
+.appdetail-content-imgwrap img.appdetail-content-img {
+    display: block;
+    // position: absolute;
+    // top: 0px;
+    // left: 0px;
+    // width: 100%;
+    // height: 100%;
+    @media (min-width: @screen-sm-min) {
+        max-width: 720px;
+    }
+
+    max-height: 405px;
+}
+
+.appdetail-content-imgwrap video.appdetail-content-video {
+    display: block;
+    width: 100%;
+    height: 100%;
+    max-width: 720px;
+    max-height: 405px;
+}
+
+.appdetail-content-imgwrap div.appdetail-content-videoplaybtn {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-left: -30px;
+    margin-top: -30px;
+    width: 60px;
+    height: 60px;
+    z-index: 11;
+    cursor: pointer;
+}
+
+.appdetail-content-imgwrap div.appdetail-content-videoplaybtn:hover {
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.apidetail-builtusing-content {
+    margin: 20px 0 50px 0;
+    vertical-align: middle;
+}
+
+apidetail-builtusing-content-item {
+    display: flex;
+}
+
+.apidetail-builtusing-content .apidetail-builtusing-img {
+    display: inline-block;
+    margin-right: 10px;
+    width: 34px;
+    height: 34px;
+}
+
+.apidetail-builtusing-title {
+    margin-top: 40px;
+    display: inline-block;
+}
+
+.similarapps-container {
+    background-color: @lt-grey;
+    //padding: 50px 0 50px 0;
+}
+
+.similarapps-container .similarapp-block {
+    //display: inline-block;
+    margin: 50px 0;
+}
+
+.similarapps-container .similarapp-block .imgiconcentered {
+    margin: auto;
+    display: block;
+    width: 175px;
+    height: 175px;
+}
+
+.similarapp-title {
+    margin: 50px 0 0px 0;
+}
+
+#appdetail-similarapplink:hover {
+    font-weight: normal;
+    text-decoration: underline;
+}
+.appdetail-builtusingitem{
+    overflow:hidden;
+    max-width:365px;
+    height:35px;
+}

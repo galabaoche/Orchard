@@ -1,0 +1,192 @@
+﻿@using FluentNHibernate.Utils
+
+@functions {
+    // To support the layout classifaction below. Implementing as a razor function because we can, could otherwise be a Func<string[], string, string> in the code block following.
+    string CalcuClassify(string[] zoneNames, string classNamePrefix)
+    {
+        var zoneCounter = 0;
+        var zoneNumsFilled = string.Join("", zoneNames.Select(zoneName => { ++zoneCounter; return Model[zoneName] != null ? zoneCounter.ToString() : ""; }).ToArray());
+        return HasText(zoneNumsFilled) ? classNamePrefix + zoneNumsFilled : "";
+    }    
+}
+@{
+    /* Global includes for the theme
+    ***************************************************************/
+
+    SetMeta(httpEquiv: "X-UA-Compatible", content: "IE=edge,chrome=1");
+    Style.Include("../Bootstrap/css/bootstrap.min.css").SetAttribute("data-timestamped", "true");
+    Style.Include("../Bootstrap/css/bootstrap-theme.min.css").SetAttribute("data-timestamped", "true");
+    Style.Include("site.min.css").SetAttribute("data-timestamped", "true");
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">    
+    Style.Include("blog.css").SetAttribute("data-timestamped", "true");
+    Script.Require("jQuery").AtHead();
+    Script.Include("../../../Modules/Orchard.jQuery/Scripts/jquery.cookie.min.js").AtHead().SetAttribute("data-timestamped", "true");
+    Script.Include("../Bootstrap/js/bootstrap.min.js").AtHead().SetAttribute("data-timestamped", "true");
+    Script.Include("../Scripts/angular.min.js").AtHead().SetAttribute("data-timestamped", "true");
+    Script.Include("../Scripts/angular-contenteditable.js").AtHead().SetAttribute("data-timestamped", "true");
+    Script.Include("../Scripts/app.js").AtHead().SetAttribute("data-timestamped", "true");
+    Script.Include("../Scripts/site.js").AtHead().SetAttribute("data-timestamped", "true");
+    Script.Include("../Scripts/blog-ellipsis.js").AtFoot().SetAttribute("data-timestamped", "true");
+
+    /* Some useful shortcuts or settings
+    ***************************************************************/
+
+    Func<dynamic, dynamic> Zone = x => Display(x); // Zone as an alias for Display to help make it obvious when we're displaying zones
+
+    /* Inserting some ad hoc shapes
+    ***************************************************************/
+
+    WorkContext.Layout.Header.Add(New.Branding(), "5"); // Site name and link to the home page
+    if (string.Equals(WorkContext.CurrentCulture, "zh-cn", StringComparison.OrdinalIgnoreCase))
+    {
+        WorkContext.Layout.Footer.Add(New.FooterCN(), "5"); // Site footer
+    }
+    else
+    {
+        WorkContext.Layout.Footer.Add(New.Footer(), "5"); // Site footer
+    }
+
+    Model.Id = "layout-wrapper";
+    var tag = Tag(Model, "div"); // using Tag so the layout div gets the classes, id and other attributes added to the Model
+    var currentCulture = WorkContext.CurrentCulture.ToLowerInvariant();
+}
+@using (Script.Head())
+{
+    <script src="https://cdn.optimizely.com/js/6213472562.js"></script>
+    <script>
+        var e = document.createElement("script");
+        e.async = true;
+        e.src = "https://ad.atdmt.com/m/a.js;m=11087206420460;cache=" + Math.random();
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(e, s);
+    </script>
+    <noscript>
+        <iframe style="display:none;"
+                src="https://ad.atdmt.com/m/a.html;m=11087206420460;noscript=1"></iframe>
+    </noscript>
+}
+@using (Script.Foot())
+{
+    <script type="text/JavaScript">
+        var varAutoFirePV = 1;
+        var varClickTracking = 1;
+        var varCustomerTracking = 1;
+        if ("@currentCulture" == "zh-cn") {
+            var Route = "62584";
+        }
+        else {
+            var Route = "20049";
+        }
+        var Ctrl = " ";
+        document.write("<script type='text/javascript' src='" + (window.location.protocol) + "//c.microsoft.com/ms.js'" + "'><\/script>");
+        // code for google analytics.
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+                (i[r].q = i[r].q || []).push(arguments)
+            }, i[r].l = 1 * new Date(); a = s.createElement(o),
+            m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
+
+        var trackOutboundLink = function (url) {
+            ga('send', 'event', 'outbound', 'click', url);
+        }
+
+        if ("@currentCulture" == "zh-cn") {
+            ga('create', 'UA-72171728-3', 'auto');
+        }
+        else {
+            ga('create', 'UA-72171728-1', 'auto');
+        }
+
+        // Optimizely Universal Analytics Integration
+        window.optimizely = window.optimizely || [];
+        window.optimizely.push("activateUniversalAnalytics");
+        // End Optimizely Code
+
+        ga('require', 'linkid');
+        ga('send', 'pageview');
+    </script>
+}
+
+<div ng-app="projectOxfordApp">
+    @tag.StartElement
+    @if (Model.Header != null)
+    {
+        <header id="layout-header" role="banner" style="position:fixed;">
+            <div class="container">
+                @Zone(Model.Header)
+            </div>
+        </header>
+    }
+    @if (Model.Navigation != null)
+    {
+        <div id="layout-navigation">
+            @Zone(Model.Navigation)
+        </div>
+    }
+    @if (Model.Featured != null)
+    {
+        <div id="content" class="container-fluid">
+            @Zone(Model.Featured)
+        </div>
+    }
+    <div id="layout-main-container" role="main">
+        <div id="layout-main">
+            <div id="layout-content">
+                @if (Model.BeforeContent != null)
+                {
+                    <div class="clearfix">
+                        @Zone(Model.BeforeContent)
+                    </div>
+                } 
+                @if (Model.LeftPanel != null)
+                {
+                    <div id="content" style="padding-top:30px;">
+                        <div class="container">
+                            <div class="row">
+                                <div id="left-panel" class="col-md-3">
+                                    @Zone(Model.LeftPanel)
+                                </div>
+                                <div class="clearfix col-md-9">
+                                    @Zone(Model.Content)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.RightPanel != null)
+                {
+                    <div id="content" style="padding-top:30px;">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-md-9">
+                                    @Zone(Model.Content)
+                                </div>
+                                <div id="right-panel" class="clearfix col-md-3">
+                                    @Zone(Model.RightPanel)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                @if (Model.Content != null && Model.LeftPanel == null && Model.RightPanel == null)
+                {
+                    <div id="content" class="clearfix">
+                        <div class="page-content-container">
+                            @Zone(Model.Content)
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+    @if (Model.Footer != null)
+    {
+        <footer id="layout-footer">
+            @Zone(Model.Footer)
+        </footer>
+    }
+    @tag.EndElement
+</div>

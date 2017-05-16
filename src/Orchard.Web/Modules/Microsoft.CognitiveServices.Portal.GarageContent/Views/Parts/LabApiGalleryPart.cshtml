@@ -1,0 +1,52 @@
+﻿@{
+    Script.Require("jQuery");
+    Style.Require("LabApi-Style");
+    string pageTitle = @Model.ViewModel.Title;
+    Layout.Title += pageTitle;
+}
+<!--hero area-->
+<section class="hero-banner-container row" style="background-image:url('@Model.ViewModel.HeaderImageUrl')">
+    <div class="hero-banner__content-container container">
+        <div class="hero-banner__content col-sm-12 col-md-6">
+            <h1 class="text--light text--lg text--white">@pageTitle</h1>
+            <p class="text--semilight text--sm text--white">
+                @Model.ViewModel.Description
+            </p>
+            <a id="LabTermsLink" href="@Model.ViewModel.LabTermsLink.Value" class="LabTermsLink text--sm text--semilight">@Model.ViewModel.LabTermsLink.Text</a>
+        </div>
+    </div>
+</section>
+
+<!--Lab Gallery list-->
+<section class="container labapi-gallery-list-container">
+    <div class="row header">
+        <div class="text--light text--md color--black">@T("Lab services")</div>
+    </div>
+    <div class="row items">
+        @{
+            if (Model.ViewModel.LabApis != null)
+            {
+                foreach (var content in Model.ViewModel.LabApis)
+                {
+                    @Display(BuildDisplay(content, "Gallery"))
+                }
+            }
+        }
+    </div>
+</section>
+
+<!--FAQ-->
+@if (!string.IsNullOrEmpty(Model.ViewModel.HtmlBody))
+{
+    <section class="labapi-gallery-FAQ">
+        <div class="container">
+            <div class="row header">
+                <span class="text--light text--md">@Model.ViewModel.FAQName</span>
+            </div>
+            <div class="row html-body">
+                @Html.Raw(Model.ViewModel.HtmlBody)
+            </div>
+        </div>
+    </section>
+}
+

@@ -1,0 +1,68 @@
+﻿#grouplinksAccordion .panel-title {
+    position: relative;
+    vertical-align: top;
+}
+#grouplinksAccordion .panel-title > div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#grouplinksAccordion .moveIcon {
+	background: url(Images/move.gif) no-repeat 0 5px;
+    cursor: move;
+    width: 30px;
+    height: 20px;
+}
+
+#grouplinksAccordion .skypeAdminEditRemoveLinks {
+    position: absolute;
+    right: 0;
+    height: 20px;
+    top: calc(50% - 10px);
+}
+
+#grouppricingsAccordion .panel-collapse.link {
+    margin: 0 20px;
+}
+
+#grouppricingsAccordion .panel-title {
+    position: relative;
+    vertical-align: top;
+}
+#grouppricingsAccordion .panel-title > div {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+#grouppricingsAccordion .moveIcon {
+	background: url(Images/move.gif) no-repeat 0 5px;
+    cursor: move;
+    width: 30px;
+    height: 20px;
+}
+
+#grouppricingsAccordion .skypeAdminEditRemoveLinks {
+    position: absolute;
+    right: 0;
+    height: 20px;
+    top: calc(50% - 10px);
+}
+
+#grouppricingsAccordion .panel-collapse.link {
+    margin: 0 20px;
+}
+
+#grouplinksAccordion .panel-collapse.link {
+    margin: 0 20px;
+}
+label {
+    font-weight: bold !important;
+}
+.linkDescriptionTextarea {
+    resize: vertical;
+}
+
+.media-library-picker-container .button {
+    margin-top: 5px;
+}
+#grouplinksAccordion .panel-collapse{padding:15px}

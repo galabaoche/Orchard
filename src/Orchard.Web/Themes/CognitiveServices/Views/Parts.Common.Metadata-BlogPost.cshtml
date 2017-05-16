@@ -1,0 +1,35 @@
+﻿
+@{
+    var name = Model.ContentPart.Owner.UserName;
+    var url = Request.RawUrl;
+    var culture = url.Split('/')[2];
+    var authorLink = "/cognitive-services/" + culture + "/blog/" + name;
+
+    var dt = Model.ContentPart.CreatedUtc.ToString("MMMM d, yyyy",System.Globalization.DateTimeFormatInfo.InvariantInfo);
+
+    var icons = Model.ContentPart.Owner.PictureUrl.MediaParts;
+    var group = @Model.ContentPart.Owner.Group.Value;
+    var title = @Model.ContentPart.Owner.Title.Value;
+    var displayname = @Model.ContentPart.Owner.DisplayName.Value;
+}
+
+<div class="blog-datetime text--medgrey text--xxs text--reg">
+	@dt
+</div>
+
+<div class="blog-author text--medgrey text--xxs text--reg">
+	@if( @icons.Count != 0){
+		<img src="@icons[0].MediaUrl" class="user-icon">
+	}
+    @if (displayname != null)
+    {
+        <span> @displayname </span>
+    }
+	@if( title != null ){
+		<span>, @title</span>
+	}
+    @if (group != null)
+    {
+        <span>, @group</span>
+    }
+</div>

@@ -1,0 +1,54 @@
+@import "colors";
+@import "params";
+
+.labapi-gallery-FAQ * {
+    background-color: @lt-grey !important;
+}
+
+.labapi-gallery-FAQ {
+    background-color: @lt-grey !important;
+
+    .html-body {
+        padding-left: 0;
+    }
+
+    .header {
+        margin-top: 30px;
+        color: @black;        
+    }
+}
+
+.labapi-gallery-list-container {
+    min-height: 370px; // Todo: Richard, need to be removed when fixing the bug of header scroll.
+    .header {
+        margin-top: 50px;
+        margin-bottom: 20px;
+    }
+}
+
+.hero-banner-container {
+    .LabTermsLink, .LabTermsLink:hover, .LabTermsLink:active, .LabTermsLink:focus {
+        color: @white !important;
+        text-decoration: none !important;
+    }
+}
+
+@media (max-width: @screen-sm-min) {
+    .labapi-gallery-list-container {
+        .header {
+            > div {
+                margin-left: 15px;
+            }
+        }
+    }
+
+    .labapi-gallery-FAQ {
+        .html-body {
+            padding-left: 0;
+        }
+
+        .header {
+            margin-left: 10px;
+        }
+    }
+}

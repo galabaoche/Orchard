@@ -1,0 +1,30 @@
+﻿@using Orchard.Blogs.Extensions;
+@using Orchard.Blogs.Models;
+@{
+    Style.Require("BlogsArchives");
+    Script.Require("BlogsArchives");
+    IEnumerable<KeyValuePair<ArchiveData, int>> archives = Model.Archives;
+    var dateTimeLocalization = WorkContext.Resolve<Orchard.Localization.Services.IDateTimeFormatProvider>();
+    var monthNames = dateTimeLocalization.MonthNames.ToArray();
+}
+<div class="archives">
+    @if (archives.Count() > 0) {
+    <ul class="years row">
+        @{
+            int lastYear = archives.First().Key.Year;
+            int firstYear = archives.Last().Key.Year;
+        }
+        @for (int year = lastYear; year >= firstYear; year--) {
+            var yearMonths = archives.Where(m => m.Key.Year == year);
+            
+            <li class="col-md-4">
+                <h3>@year</h3>
+                 @Html.UnorderedList(yearMonths, (t, i) => Html.Link(Html.Raw(string.Format("{0}", monthNames[t.Key.ToDateTime().Month - 1])), Url.BlogArchiveMonth((BlogPart)Model.Blog, t.Key.Year, t.Key.Month)), "archiveMonthList")
+           </li>
+        }
+    </ul>
+    } 
+    else {
+    <div class="message info">@T("None found")</div>
+    }
+</div>

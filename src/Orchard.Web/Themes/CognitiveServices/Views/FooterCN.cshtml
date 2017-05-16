@@ -1,0 +1,373 @@
+﻿@using Orchard.Utility.Extensions;
+@using Orchard.Mvc.Html;
+@using Orchard.Mvc.Extensions;
+
+@using (Script.Foot())
+{
+    <script src="https://www.microsoftTranslator.com/ajax/v3/WidgetV3.ashx?siteData=ueOIGRSKkd965FeEGM5JtQ**" type="text/javascript"></script>
+    <script type="text/javascript">
+        // Include the UserVoice JavaScript SDK (only needed once on a page)
+        UserVoice = window.UserVoice || [];
+        (function () {
+            var uv = document.createElement('script');
+            uv.type = 'text/javascript';
+            uv.async = true;
+            uv.src = '//widget.uservoice.com/6hW5Um5EzZ19G4o8yxeEw.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(uv, s)
+        })();
+
+        UserVoice.push(['set', {
+            // Options can also be set on specific widgets instead of globally
+            target: 'self', // 'none' for toaster popups, #id for a specific element on the page
+            position: 'top', // Popover position
+            height: '325px', // Widget height
+            width: '100%', // Widget width
+            accent_color: '#004b50', // Widget accent color
+            locale: 'cn', // Defaults to your account’s localization
+
+            // Customize widget text
+            // (see documentation for all options)
+            strings: {
+                // Contact form
+                contact_title: '联系我们',
+                contact_message_placeholder: '反馈意见或寻求帮助',
+                contact_skip_instant_answers_button: '忽略并发送消息',
+                contact_details_title: '更多细节',
+                contact_submit_button: '发送消息',
+                contact_success_title: '提交成功！',
+                contact_success_body: '我们会和你联系。',
+            }
+        }]);
+
+        UserVoice.push(['addTrigger', '#general-inquiry-link', {
+            mode: 'contact',
+            ticket_custom_fields: {
+                'Custom Widget': 'Azure.cn'
+            },
+
+            // Customize widget text
+            // (see documentation for all options)
+            strings: {
+                // Contact form
+                contact_title: '询问',
+                contact_message_placeholder: '反馈意见或寻求帮助',
+                contact_skip_instant_answers_button: '忽略并发送消息',
+                contact_details_title: '更多细节',
+                contact_submit_button: '发送消息',
+                contact_success_title: '提交成功！',
+                contact_success_body: '我们会和你联系。',
+            }
+        }]);
+
+        UserVoice.push(['addTrigger', '#report-abuse-link', {
+            mode: 'contact',
+            ticket_custom_fields: {
+                'Custom Widget': 'Azure.cn'
+            },
+
+            // Customize widget text
+            // (see documentation for all options)
+            strings: {
+                // Contact form
+                contact_title: '举报',
+                contact_message_placeholder: '发生了什么事情？',
+                contact_skip_instant_answers_button: '忽略并发送消息',
+                contact_details_title: '更多细节',
+                contact_submit_button: '发送消息',
+                contact_success_title: '提交成功！',
+                contact_success_body: '我们会和你联系。',
+            }
+        }]);
+
+        $(function () {
+            $('#WeChat-public-number').click(function () {
+                $('#weixinQRcodeDialog').addClass('open');
+            })
+
+            $('#icon-close').click(function () {
+                $('#weixinQRcodeDialog').removeClass('open');
+            })
+
+            $('#icon-close').hover(function () {
+                $('#icon-close').attr('src', '@Url.Content("/cognitive-services/Themes/CognitiveServices/Images/weixin/icon-close-hover.png")');
+            }, function () {
+                $('#icon-close').attr('src', '@Url.Content("/cognitive-services/Themes/CognitiveServices/Images/weixin/icon-close-normal.png")');
+            })
+        })
+
+        function fillList(listOfLanguages) {
+            var ddlLangs = document.getElementById('langs');
+            var box = document.getElementById("translator_box");
+            for (var key in listOfLanguages) {
+                $(ddlLangs).append('<li value="' + listOfLanguages[key].Code + '">' + listOfLanguages[key].Name + '</li>');
+                $(box).append("<a href='javascript:tranlateto(\"" + listOfLanguages[key].Code + "\",\"" + listOfLanguages[key].Name + "\");'>" + listOfLanguages[key].Name + "</a>");
+            }
+        }
+
+        var isfirst = true;
+
+        var layoutHeader = $("#layout-header").outerHeight();
+
+        function getlayoutheaderheight() {
+            if (window.innerWidth < 768) {
+                return 0;
+            }
+            return $("#layout-header").css('display') !== 'none' ? layoutHeader : 0;
+        }
+
+        function tranlateto(lang, text) {
+            $("#dropdonwicon").removeClass('select');
+
+            $('#translator_box').hide();
+
+            if ('zh-CHS' === lang) {
+                $('#showOrigin').hide();
+            }
+            else {
+                $('#showOrigin').show();
+            }
+
+            if (isfirst) {
+                $("#layout-wrapper").prepend($("#translatorwidget_tmp").clone().prop('id', 'translatorwidget').show());
+                isfirst = false;
+            }
+            else {
+                $("#translatorwidget").show();
+            }
+
+            var consValue = $("#translatorwidget").outerHeight();
+
+            var moveHeight = $('#translatorwidget').length > 0 ? ($("#translatorwidget").css('display') !== 'none' ? consValue : 0) : 0;
+
+            if (window.scrollY >= 350) {
+                $("#layout-header").hide();
+            }
+
+            $("#layout-header").css("margin-top", moveHeight);
+            $("#layout-navigation").css("margin-top", consValue + getlayoutheaderheight());
+            $(".hero-banner-container").css('margin-top', consValue + getlayoutheaderheight() + $("#layout-navigation").outerHeight() - 48);
+
+            Microsoft.Translator.Widget.Translate('zh-CHS', lang,
+                function (value) {
+
+                },
+                function (err) {
+                    tranlateto(lang, text);
+                },
+                function (result) {
+                    $("#translatorwidget").attr('dir', 'ltr');
+                },
+                function (revert) {
+
+                }, 30000);
+
+            $(".translateresult").text(text);
+
+        }
+
+        function showtransbox() {
+            $('#translator_box').toggle();
+            $("#dropdonwicon").addClass('select');
+            $("#translator_box").focus();
+        }
+
+        function showcontainer() {
+            $(".transwidgetcontainer").show().focus();
+        }
+
+        $(document).ready(function () {
+            fillList(Microsoft.Translator.Widget.GetLanguagesForTranslateLocalized());
+
+            $("#langs").on('click', 'li', function (e) {
+                e.stopPropagation();
+                $(".transwidgetcontainer").hide();
+                tranlateto($(this).attr('value'), $(this).text());
+            });
+
+            $(".transwidgetcontainer").blur(function () {
+                $(this).hide();
+            });
+
+            $("#translator_box").blur(function () {
+                setTimeout(function () {
+                    $("#translator_box").hide();
+                    $("#dropdonwicon").removeClass('select');
+                }, 200);
+            });
+
+            $("#layout-wrapper").on('click', '.close', function () {
+                tranlateto('zh-CHS', '简体中文');
+                $("#translatorwidget").hide();
+                $('#translator_box').hide();
+                if (window.scrollY >= 350) {
+                    $("#layout-header").hide();
+                    $("#layout-navigation").css("margin-top", "0px");
+                }
+                else {
+                    $("#layout-header").css("margin-top", "0px");
+                    $("#layout-navigation").css("margin-top", getlayoutheaderheight());
+                }
+                $(".hero-banner-container").css('margin-top', getlayoutheaderheight() + $("#layout-navigation").outerHeight() - 48);
+
+            });
+        });
+    </script>
+}
+<div id='translatorwidget_tmp' translate="no" style="display:none;">
+    <div class="row">
+        <div class="col-md-3 text-right translated-by">
+            <span style="color:white;" class="text--xs">由</span>
+            <span class="text--black text--xs">
+                <a href="https://www.microsoft.com/translator" target="_blank">Microsoft Translator</a>
+            </span>
+        </div>
+        <div class="col-md-3 translate-widget">
+            <img class="text--xs" src="@Url.Content("/cognitive-services/Themes/CognitiveServices/Images/footer/translate-icon.jpg")" />
+            <span class="text--xs text--white translated">
+                翻译为
+            </span>
+            <a href="javascript:showtransbox();" class="translateresult text--xs text--black" style="text-decoration:underline !important;">简体中文</a>
+            <span class="text--xs" id="dropdonwicon">
+                <i class="glyphicon glyphicon-menu-down" style="font-size: 12px;"></i>
+            </span>
+        </div>
+        <div class="col-md-6 show-original">
+            <div class="close">×</div>
+            <button class="text--xs" id="showOrigin" type="button" onclick="tranlateto('zh-CHS', '简体中文')">默认语言 </button>
+        </div>
+    </div>
+</div>
+
+<div id="translator_box" translate="no" tabindex="1"></div>
+
+<div class="container-fluid footer-container-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <h4 class="text--semibold text--black">关于</h4>
+                <div class="text--light text--black text--xs">
+                    <a href="@HC("/blog")" id="gaNews" class="text--xxs text--semilight text--medgrey">
+                        博客
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h4 class="text--semibold text--black">开发须知</h4>
+                <div class="text--light text--black text--xs">
+                    <a href="https://go.microsoft.com/fwlink/?LinkId=533207" target="_blank" onclick="trackOutboundLink('https://go.microsoft.com/fwlink/?LinkId=533207')" class="text--xxs text--semilight text--medgrey" style="white-space:nowrap">微软认知服务条款</a>
+                </div>
+                <div class="text--light text--black text--xs">
+                    <a href="http://go.microsoft.com/fwlink/?LinkId=698895" onclick="trackOutboundLink('http://go.microsoft.com/fwlink/?LinkId=698895')" target="_blank" class="text--xxs text--semilight text--medgrey">
+                        开发行为准则
+                    </a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h4 class="text--semibold text--black">帮助和支持</h4>
+                <div class="text--light text--black text--xs">
+                    <a href="https://stackoverflow.com/questions/tagged/microsoft-cognitive" onclick="trackOutboundLink('https://stackoverflow.com/questions/tagged/microsoft-cognitive')" target="_blank" class="text--xxs text--semilight text--black">
+                        @T("Stack Overflow")
+                    </a>
+                </div>
+                <div class="text--light text--black text--xs">
+                    <a href="https://cognitive.uservoice.com/" onclick="trackOutboundLink('https://cognitive.uservoice.com/')" target="_blank" class="text--xxs text--semilight text--medgrey">
+                        技术支持
+                    </a>
+                </div>
+                <div class="text--light text--black text--xs">
+                    <a href="#" id="general-inquiry-link" class="text--xxs text--semilight text--medgrey" style="white-space:nowrap" onclick="ga('send', 'event', 'userVoice', 'contactUs', 'footer');">联系我们</a>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h4 class="text--semibold text--black">关注我们</h4>
+                <div style="margin-top:20px;">
+                    <a id="WeChat-public-number" href="javascript:void(0)" target="_blank" style="display: inline-block;height: 32px;">
+                        <i class="fa text--black" style="font-size:32px;float: left;">
+                            <img src="@Url.Content("/cognitive-services/Themes/CognitiveServices/Images/footer/weixin.jpg")" />
+                        </i>
+                        <span style="float: left;line-height: 32px;margin-left: 10px;" class="text--black text--semilight text--xxs">微软认知服务</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-4">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="row" style="margin:50px  -15px;">
+                            <div class="col-sm-6 col-xs-6">
+                                <a href="@Url.Content("~/en-us/")" class="text--xxs text--semilight text--medgrey" onclick="trackOutboundLink('https://www.microsoft.com/cognitive-services')">
+                                    <span class="glyphicon glyphicon-globe"></span>
+                                    English
+                                </a>
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <div style="cursor:pointer;display:inline-block;" onclick="showcontainer()">
+                                    <span class="glyphicon">
+                                        <img src="@Url.Content("/cognitive-services/Themes/CognitiveServices/Images/footer/translate-icon.jpg")" />
+                                    </span>
+                                    <div class="transwidgetcontainer" tabindex="1">
+                                        <div class="text--black text--xxs" translate="no">选择您的语言</div>
+                                        <ul id="langs" translate="no"></ul>
+                                        <div class="translateresult translateresult-teal text--black text--xs" translate="no">默认</div>
+                                    </div>
+                                    <a href="javascript:;" id="btnTranslate"  class="text--xxs text--semilight text--medgrey" style="position: relative; top: 3px;" translate="no">翻译</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8 text-lg-right hidden-xs">
+                <h4 class="text--xxs text--semibold text--black footer-links">
+                    <a href="http://go.microsoft.com/fwlink/?LinkId=521839" onclick="trackOutboundLink('http://go.microsoft.com/fwlink/?LinkId=521839')" target="_blank" class="text--xxs text--semilight text--medgrey">
+                        @T("Privacy & Cookies")
+                    </a>
+                </h4>
+                <h4 class="text--xxs text--semibold text--black footer-links">
+                    <a href="https://go.microsoft.com/fwlink/?LinkID=206977" onclick="trackOutboundLink('https://go.microsoft.com/fwlink/?LinkID=206977')" target="_blank" class="text--xxs text--semilight text--medgrey">
+                        @T("Website Terms of Use")
+                    </a>
+                </h4>
+                <h4 class="text--xxs text--semibold text--black footer-links">
+                    <a href="https://go.microsoft.com/?linkid=9851308" onclick="trackOutboundLink('https://go.microsoft.com/?linkid=9851308')" target="_blank" class="text--xxs text--semilight text--medgrey">
+                        @T("Trademarks")
+                    </a>
+                </h4>
+                <h4 class="text--xxs text--semibold text--black footer-links">
+                    <a id="report-abuse-link" href="#" onclick="ga('send', 'event', 'userVoice', 'reportAbuse', 'reportAbuse');" class="text--xxs text--semilight text--medgrey  uv-btn-trigger">
+                        @T("Report Abuse")
+                    </a>
+                </h4>
+                <h4 class="text--black text--semilight text--xxs footer-links">
+                    ©2016 Microsoft
+                </h4>
+            </div>
+            <div class="col-sm-2 visible-xs">
+                <h4 class="text--xxs text--semilight text--medgrey footer-links">
+                    ©2016 Microsoft
+                </h4>
+                <div style="clear:both" class="hidden-lg-footer"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="weixinQRcodeDialog" class="weixin-dialog-container" role="dialog" data-width="350" data-height="450">
+    <div class="dialog-mask">
+
+    </div>
+    <div class="dialog-content" style="width: 350px; height: 450px; margin-left: -175px; margin-top: -225px;">
+        <div class="dialog-header">
+            <img id="icon-close" class="close-btn" src=@Url.Content("/cognitive-services/Themes/CognitiveServices/Images/weixin/icon-close-normal.png") />
+        </div>
+        <div class="dialog-body">
+            <div class="weixin-qrcode">
+                <img src=@Url.Content("/cognitive-services/Themes/CognitiveServices/Images/weixin/weixin-QR-code.png") alt="Wexin QR code">
+                <p>扫码关注<strong>认知服务微信公众号</strong></p>
+                <p>一手掌握认知服务最新资讯</p>
+            </div>
+        </div>
+    </div>
+</div>

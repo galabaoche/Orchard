@@ -1,0 +1,231 @@
+﻿@using System.Collections.Generic;
+@using Microsoft.CognitiveServices.Portal.GarageContent.Models;
+@{
+    string pageTitle = Model.Title;
+    Layout.Title += pageTitle;
+    Style.Require("LabApi-Style");
+    Script.Require("LabApi").AtFoot();
+
+    string currentPageUrl = VirtualPathUtility.ToAppRelative(
+    new Uri(Request.Url.PathAndQuery, UriKind.Relative).ToString()).TrimStart('~');
+
+    string BackgroundClassByIfHasHeaderImg = string.IsNullOrEmpty(Model.HeaderImageUrl) ? "hero-banner-labapi-defant-color" : string.Empty;
+}
+@functions{
+    string getFeatureItemContainer(int index)
+    {
+        string alternatingGrey = "feature-item-container";
+        if (index % 2 == 1)
+        {
+            alternatingGrey = "feature-item-container--grey";
+        }
+        return alternatingGrey;
+    }
+}
+<!--hero area-->
+<section class="hero-banner-container row @BackgroundClassByIfHasHeaderImg" style="background-image:url('@Model.HeaderImageUrl')">
+    <div class="preview-hint-container text--reg visible-lg">@T("preview-hint")</div>
+    <div class="hero-banner__content-container container">
+        <div class="hero-banner__content col-sm-12 col-md-6">
+            <h1 class="text--light text--lg text--white">@pageTitle</h1>
+            @if (!string.IsNullOrWhiteSpace(Model.LabApiStatus))
+            {
+                <div class="preview-tag">
+                    <span class="text--bold">@Model.LabApiStatus<img class="preview-icon  visible-lg" src="@Href(" ../../Images/preview-icon.png")" /></span>
+                </div>
+            }
+            <p class="text--semilight text--sm text--white">
+                @Model.Description
+            </p>
+            <div class="hero-banner-btn">
+                <a id="topGetStartedForFree" href="@H(Model.SubscribeLink + (Model.SubscribeLink.Contains("?")?"&":"?") + "source=labs")" class="btn--oxford btn--yellow text--sm text--semilight">@T("Subscribe")</a>
+            </div>
+        </div>
+        @if (string.IsNullOrEmpty(Model.HeaderImageUrl))
+            {
+            <div class="hero-banner-right-img visible-lg">
+                <img src="@Href("../../Images/hero-banner-icon.png")" />
+            </div>
+        }
+    </div>
+</section>
+
+<section class="labapi-detail-cta-bar api-detail-cta-bar row">
+    <div class="api-detail-cta-bar__btn-container container">
+        <div class="pull-right">
+            <div class="api-detail-btn">
+                <a id="submit-app-link" href="#" onclick="ga('send', 'event', 'userVoice', 'feedback', 'labApi');" class="btn--oxford btn--teal text--sm text--semilight uv-btn-trigger">@T("Feedback")</a>
+            </div>
+            @if (!string.IsNullOrWhiteSpace(Model.DocumentationLink))
+            {
+                if (Model.DocumentationLink.StartsWith("https://") || Model.DocumentationLink.StartsWith("http://"))
+                {
+                    <div class="api-detail-btn">
+                        <a id="topDocumentationLink" href="@H(@Model.DocumentationLink)" target="_blank" class="btn--oxford btn--teal text--sm text--semilight">
+                            @T("Documentation")
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="api-detail-btn">
+                        <a id="topDocumentationLink" href="@H(@Model.DocumentationLink)" class="btn--oxford btn--teal text--sm text--semilight">
+                            @T("Documentation")
+                        </a>
+                    </div>
+                }
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Model.ApiReferenceUrl))
+            {
+                if (Model.ApiReferenceUrl.StartsWith("https://") || Model.ApiReferenceUrl.StartsWith("http://"))
+                {
+                    <div class="api-detail-btn">
+                        <a id="topApiReferenceLink" href="@Model.ApiReferenceUrl" target="_blank" class="btn--oxford btn--teal text--sm text--semilight">
+                            @T("API Reference")
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="api-detail-btn">
+                        <a id="topApiReferenceLink" href="@Model.ApiReferenceUrl" class="btn--oxford btn--teal text--sm text--semilight">
+                            @T("API Reference")
+                        </a>
+                    </div>
+                }
+            }
+
+            @if (!string.IsNullOrWhiteSpace(Model.SDKLink))
+            {
+                if (Model.SDKLink.StartsWith("https://") || Model.SDKLink.StartsWith("http://"))
+                {
+                    <div class="api-detail-btn">
+                        <a id="topApiReferenceLink" href="@Model.SDKLink" target="_blank" class="btn--oxford btn--teal text--sm text--semilight">
+                            @T("SDK")
+                        </a>
+                    </div>
+                }
+                else
+                {
+                    <div class="api-detail-btn">
+                        <a id="topApiReferenceLink" href="@Model.SDKLink" class="btn--oxford btn--teal text--sm text--semilight">
+                            @T("SDK")
+                        </a>
+                    </div>
+                }
+            }
+        </div>
+    </div>
+</section>
+
+<!--features with demos-->
+@{
+    int index = 0;
+    foreach (var feature in Model.Features)
+    {
+        string alternatingGrey = getFeatureItemContainer(index);
+
+        <div class="@alternatingGrey row">
+            @{
+                bool hasName = !string.IsNullOrWhiteSpace(feature.Name);
+                bool hasDescription = !string.IsNullOrWhiteSpace(feature.Description);
+                bool hasImage = !string.IsNullOrWhiteSpace(feature.ImageUrl);
+                if (hasName || hasDescription)
+                {
+                    <div class="feature-item-content container">
+                        <div class="feature-item-content__details--no-demo container">
+                            @if (hasImage)
+                            {
+                                <div class="col-xs-12 col-sm-6 col-md-5 col-md-offset-1">
+                                    <h2 class="text--md text--light text--black">@feature.Name</h2>
+                                    <p class="text--xs text--reg text--black" style="white-space:pre-line">
+                                        @feature.Description
+                                    </p>
+                                </div>
+                                <div class="feature-item-content__img hidden-xs col-sm-6 col-md-6">
+                                    <img class="img-responsive" alt="" src="@feature.ImageUrl">
+                                </div>
+                            }
+                            else
+                            {
+                                <!-- Todo: Richard, remove the hard code min height -->
+                                <div class="col-xs-12 col-sm-12 col-md-8 col-md-offset-2" style="min-height:370px">
+                                    <h2 class="text--md text--light text--black">@feature.Name</h2>
+                                    <p class="text--xs text--reg text--black" style="white-space:pre-line">
+                                        @feature.Description
+                                    </p>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                }
+                if (!string.IsNullOrEmpty(feature.FeatureContainer))
+                {
+                    <div class="feature-item-content__demo container">
+                        <iframe src="@feature.FeatureContainer" style="width:100%;border:none;"></iframe>
+                    </div>
+                }
+                index++;
+            }
+        </div>
+                }
+}
+
+<script type="text/javascript">
+    var queue = 'apps';
+    if ('@WorkContext.CurrentCulture.ToLowerInvariant()' == "zh-cn") {
+        queue = 'Azure.cn';
+    }
+
+    UserVoice = window.UserVoice || [];
+    (function () {
+        var uv = document.createElement('script');
+        uv.type = 'text/javascript';
+        uv.async = true;
+        uv.src = '//widget.uservoice.com/6hW5Um5EzZ19G4o8yxeEw.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(uv, s)
+    })();
+
+    UserVoice.push(['addTrigger', '#submit-app-link', {
+        mode: 'contact',
+        ticket_custom_fields:
+        {
+            'Custom Widget': queue
+        },
+
+        // Customize widget text
+        // (see documentation for all options)
+        strings:
+        {
+            // Contact form
+            contact_title: '@T("contact_title")',
+            contact_message_placeholder: '@T("contact_message_placeholder")',
+            contact_skip_instant_answers_button: '@T("contact_skip_instant_answers_button")',
+            contact_details_title: '@T("contact_details_title")',
+            contact_submit_button: '@T("contact_submit_button")',
+            contact_success_title: '@T("contact_success_title")',
+            contact_success_body: '@T("contact_success_body")'
+        }
+    }]);
+</script>
+
+@using (Script.Foot())
+{
+    <script type="text/javascript">
+        $(function () {
+            $('.preview-icon').hover(function () {
+                $(this).attr('src', '@Href(" ../../Images/preview-icon-hover.png")');
+                $('.preview-hint-container').css('visibility', 'visible');
+            }, function () {
+                $(this).attr('src', '@Href(" ../../Images/preview-icon.png")');
+                $('.preview-hint-container').css('visibility', 'hidden');
+            })
+            $('.preview-hint-container')
+               .css('left', $('.preview-icon').offset().left + $('.preview-icon').width() + 10)
+               .css('top', $('.preview-icon').offset().top - $('#layout-header').height() - $('#layout-navigation').height() - $('.preview-icon').height()
+              );
+        })
+    </script>
+}

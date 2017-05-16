@@ -1,0 +1,40 @@
+﻿@using Microsoft.CognitiveServices.Portal.GarageContent.ViewModels;
+
+<section class="container labapi-detail-gallery-item">
+    <div class="row">
+        <div class="col-md-2 col-xs-12 image-container">
+            @{
+                if (!string.IsNullOrEmpty(Model.GalleryImageUrl))
+                {
+                    <img src="@Model.GalleryImageUrl" />
+                }
+                else
+                {
+                    <img src="@Href("~/Modules/Microsoft.CognitiveServices.Portal.GarageContent/Images/labapi_icon.svg")" />
+                }
+            }
+        </div>
+        <div class="col-md-8 col-xs-12 api-detail-desc">
+            <div class="title">
+                <a id="labapidetail" href="@H(Model.ProductUrl)" class="text--sm text--reg">@Model.Title</a>
+            </div>
+            <div>
+                <span class="status text--xxs">@Model.LabApiStatus</span>
+            </div>
+            <div>
+                <p class="caption text--sm text--reg">@Model.Caption</p>
+            </div>
+        </div>
+        <div class="col-md-2 col-xs-12 subscribe">
+            @if (!string.IsNullOrWhiteSpace(Model.SubscribeLink))
+            {
+                <a class="pull-right btn--oxford btn--yellow text--xs text--semilight" href="@H(Model.SubscribeLink + (Model.SubscribeLink.Contains("?")?"&":"?") + "source=labs")">@T("Subscribe")</a>
+            }
+        </div>
+    </div>
+</section>
+
+
+
+
+

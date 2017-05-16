@@ -1,0 +1,63 @@
+@import "colors";
+@import "params";
+
+.labapi-detail-gallery-item {
+    background-color: @llt-grey;
+    margin-bottom: 20px;
+
+    .image-container {
+        padding-left: 0;
+        width: auto !important;
+
+        img {
+            width: 146px;
+            height: 146px;
+        }
+    }
+
+    .api-detail-desc {
+        padding-left: 5px !important;
+
+        .title {
+            margin-top: 15px;
+        }
+
+        .status {
+            font-style: italic;
+            color: #808080;
+        }
+
+        .caption {
+            color: @black;
+        }
+    }
+
+    .subscribe {
+        margin-left: 30px;
+        margin-top: calc(146px / 2 - 45px / 2);
+    }
+}
+
+@media (max-width: @screen-sm-min) {
+    .labapi-detail-gallery-item {
+        padding-top: 20px;
+        padding-bottom: 20px;
+
+        .row {
+            text-align: center;
+
+            .image-container {
+                float: none;
+            }
+
+            .subscribe {
+                .pull-right {
+                    float: none !important;
+                }
+
+                margin-left: 0px;
+                margin-top: 20px;
+            }
+        }
+    }
+}

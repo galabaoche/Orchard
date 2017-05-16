@@ -1,0 +1,7 @@
+﻿Name: Cognitive Services Theme
+Author: CIG
+Description: Theme for the Cognitive Services portal
+Version: 1.9.2
+Tags: Awesome
+Website: https://www.microsoft.com/cognitive-services
+Zones: Header, Navigation, Featured, LeftPanel, Content, RightPanel, Footer

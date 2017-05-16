@@ -1,0 +1,367 @@
+﻿@import "colors";
+@import "typography";
+
+.title-14-normal-black {
+    .text--xxs;
+    .text--reg;
+    .text--black;
+}
+
+.title-16-normal-black {
+    .text--xs;
+    .text--reg;
+    .text--medgrey;
+}
+
+.title-24-normal-medgrey {
+    .text--smd;
+    .text--reg;
+    .text--medgrey;
+}
+
+.title-30-light-black {
+    .text--xmd;
+    .text--light;
+    .text--black;
+}
+
+.title-34-light-black {
+    .text--xxmd;
+    .text--light;
+    .text--black;
+}
+
+.text--black a {
+    color: @black;
+}
+
+.widget-Blogbanner,
+.widget-BlogbannerCN {
+    .blog-banner,
+    p {
+        .text--white;
+        .text--xlg;
+    }
+}
+
+.page-title {
+    margin-bottom: 50px;
+    .title-34-light-black;
+}
+
+.blog-posts,
+.archives-list {
+    list-style: none;
+    padding-left: 0;
+
+    & > li:not(.last) {
+        border-bottom: 1px solid @lt-grey;
+    }
+}
+
+.blog-post {
+    & > header > h1 {
+        line-height: 1;
+        margin-bottom: 20px;
+        .title-30-light-black;
+    }
+
+    .blog-datetime,
+    .blog-author {
+        margin-bottom: 20px;
+    }
+    p {
+        margin-bottom: 20px; 
+        .title-16-normal-black;
+    } 
+    .col-md-4 {
+        padding-right: 5px;
+        .blogposter {
+            img, 
+            video, 
+            iframe {
+                width: 100%;
+                height: auto;
+                margin-bottom: 20px;  
+            }
+        }
+    .media-library-picker-field iframe + .media-thumbnail { 
+        display: none; 
+    }
+  }
+}
+
+img.user-icon {
+    width: 25px;
+    height: 25px;
+    border-radius: 25px;
+    margin-bottom: 0;
+    margin-right: 10px;
+}
+
+.readmore > a:hover {
+    text-decoration: none;
+}
+
+.widget-FeaturedPosts,
+.widget-FeaturedPostsCN {
+    margin-bottom: 50px;
+
+    & > header > h1 {
+        .title-30-light-black;
+    }
+
+    .blog-posts {
+        & > li {
+            padding-bottom: 0;
+            border-bottom: 0;
+        }
+
+        h1 {
+            .title-16-normal-black;
+        }
+
+        p {
+            .title-14-normal-black;
+            text-align: justify;
+            margin-bottom: 30px;
+        }
+    }
+}
+
+.widget-blogarch,
+.widget-blogarchCN {
+    margin-bottom: 50px; 
+    & > header > h1 {
+        margin-bottom: 20px;
+        .title-30-light-black;
+    }
+
+    .archives ul.archiveMonthList li {
+        margin-bottom: 20px;
+    }
+}
+
+.archiveMonthList {
+    list-style: none;
+
+    li {
+        .title-16-normal-black;
+    }
+}
+
+.blog-archives-page {
+    h2 {
+        .title-34-light-black;
+        margin-bottom: 50px;
+    }
+
+    .years > li {
+        width: 30%;
+        display: inline-block;
+        vertical-align: top;
+
+        h3 {
+            margin-top: 0;
+            margin-bottom: 20px;
+            .title-24-normal-medgrey;
+        }
+    }
+
+    .archives ul.archiveMonthList li {
+        margin-bottom: 20px;
+        .title-16-normal-black;
+    }
+}
+
+.comment-count {
+    border-bottom: 2px solid @lt-grey;
+    padding-bottom: 5px;
+    margin-bottom: 0;
+
+    span {
+        border-bottom: 2px solid @light-blue;
+        padding: 3px;
+        .text--bold;
+    }
+}
+
+.blog-post {
+    & > .comments > li {
+        border-bottom: 1px solid @lt-grey;
+    }
+
+    .comments {
+        list-style: none;
+        padding-left: 0;
+
+        & > li > .comment {
+            padding-left: 40px;
+
+            .who {
+                color: @light-blue;
+                .text--bold;
+            }
+
+            time a {
+                color: @lm-grey;
+            }
+        }
+
+        h4,
+        p {
+            .text--xs;
+            .text--reg;
+        }
+    }
+}
+
+.comments li,
+.edit-item-content {
+    border: 0;
+    position: relative;
+    margin: 0;
+
+    img,
+    .comment-icon {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 30px;
+        background: @teal;
+        color: @white;
+        font-weight: bold;
+        text-align: center;
+        line-height: 200%;
+    }
+
+    #commenter {
+        position: absolute;
+        left: 0;
+        top: 40px;
+        .text--xxs;
+    }
+
+    .what {
+        padding-left: 40px;
+    }
+}
+
+.reply-box {
+    margin-bottom: 10px;
+}
+
+.comment-form {
+    padding-bottom: 40px;
+    padding-top: 10px;
+
+    .comment-text {
+        height: 80px;
+        min-height: 80px;
+        width: 100%;
+        max-width: 100%;
+        border: 1px solid @lt-grey;
+    }
+}
+
+.primaryAction {
+    background: @light-blue;
+    border: 0;
+    .text--white;
+    height: 30px;
+    float: right;
+}
+
+.primaryAction.disabled {
+    background: @lt-grey;
+    cursor:not-allowed;
+}
+
+.reply-up,
+.reply-down,
+.comment-reply-button {
+    color: @lm-grey;
+    padding-right: 5px;
+    padding-left: 2px;
+
+    &.active {
+        color: #444;
+        cursor: pointer;
+    }
+}
+
+.reply-up {
+    border-right: 1px solid @lt-grey;
+}
+
+#tab-content .pager li {
+    margin: 0 5px;
+
+    & > a,
+    & > span {
+        border-radius: 0;
+        border-color: @teal;
+        .text--sm;
+    }
+
+    & > span {
+        background: @teal;
+    }
+}
+
+#subrssfeed {
+    margin-top: 20px;
+
+    a {
+        .text--black;
+
+        &:hover {
+            color: @white !important;
+            text-decoration: none;
+        }
+    }
+}
+
+.tags a {
+    display: inline-block;
+    color: @med-grey;
+    background-color: @llt-grey;
+    padding: 5px;
+    margin: 0 4px 10px 0;
+
+    &:hover {
+        color: @med-grey !important;
+        background-color: @lt-grey;
+        -webkit-transition: background-color .2s;
+        transition: background-color .2s;
+        text-decoration: none;
+    }
+}
+
+.container,
+.hero-banner__content-container.container { 
+    @media all and (max-width: @screen-md-min) {
+        width: auto;
+        margin: 0;
+       &, 
+       .col-md-3,
+       .col-md-4,
+       .col-md-9,
+        .media-item img{ 
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+        & > .row {
+            margin-right: -20px;
+            margin-left: -20px;
+        }
+        .col-md-3 {
+            margin-top: 30px;
+        }
+        .mini-hero-banner__content {
+            padding-left: 0;
+        }
+    } 
+}

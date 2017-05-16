@@ -1,0 +1,26 @@
+﻿<Placement>
+  <Place Parts_LabApiDetail="Content:10"/>
+  <Place Parts_LabApiGallery="Content:10"/>
+
+  <Match ContentType="LabApiDetailPage">
+    <Place Parts_LabApiDetail_Edit="Content:before.49"/>
+    <Place Parts_Common_Body_Edit="Content:before.50"/>
+    <Place Parts_Common_Body="-"/>
+    
+    <Match DisplayType="Gallery">
+      <Place Parts_LabApiDetail_Gallery="Content:1"/>
+      <Place Parts_Common_Body_Summary="-"/>
+    </Match>
+  </Match>
+
+  <Match ContentType="LabApiGalleryPage">
+    <Place Parts_Common_Body="-"/>
+    <Place Fields_Common_Text_Edit-FAQName="Content:2.9"/>
+    <Place Parts_Common_Body_Edit="Content:3"/>
+  </Match>
+
+  <Match DisplayType="SummaryAdmin">
+    <Place Parts_LabApiDetail="-"/>
+    <Place Parts_LabApiGallery="-"/>
+  </Match>
+</Placement>

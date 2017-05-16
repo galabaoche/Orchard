@@ -1,0 +1,89 @@
+﻿#: "~/Themes/CognitiveServices/Views/Branding.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Branding.cshtml"
+msgid "Cognitive Services"
+msgstr "Cognitive Services"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "News"
+msgstr "News"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Blogs"
+msgstr "Blogs"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Contact us"
+msgstr "Contact us"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Privacy & Cookies"
+msgstr "Privacy & Cookies"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Website Terms of Use"
+msgstr "Website Terms of Use"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Developer Code of Conduct"
+msgstr "Developer Code of Conduct"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Trademarks"
+msgstr "Trademarks"
+
+#: "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Footer.cshtml"
+msgid "Report Abuse"
+msgstr "Report Abuse"
+
+#: "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgid "Privacy & Cookies"
+msgstr "Privacy & Cookies"
+
+#: "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgid "Website Terms of Use"
+msgstr "Website Terms of Use"
+
+#: "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgid "Developer Code of Conduct"
+msgstr "Developer Code of Conduct"
+
+#: "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgid "Trademarks"
+msgstr "Trademarks"
+
+#: "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/FooterCN.cshtml"
+msgid "Report Abuse"
+msgstr "Report Abuse"
+
+#: "~/Themes/CognitiveServices/Views/Items/Menu.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Items/Menu.cshtml"
+msgid "Cognitive Services"
+msgstr "Cognitive Services"
+
+#: "~/Themes/CognitiveServices/Views/Items/Menu.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Items/Menu.cshtml"
+msgid "Still looking for the right API?"
+msgstr "Still looking for the right API?"
+
+#: "~/Themes/CognitiveServices/Views/Items/Menu.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/Items/Menu.cshtml"
+msgid "See the entire collection >"
+msgstr "See the entire collection >"
+
+#: "~/Themes/CognitiveServices/Views/BlogPost/ListByArchive.cshtml"
+msgctxt "~/Themes/CognitiveServices/Views/BlogPost/ListByArchive.cshtml"
+msgid "Monthly archives: "
+msgstr "Monthly archives: "
